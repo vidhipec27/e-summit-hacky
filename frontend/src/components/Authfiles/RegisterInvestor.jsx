@@ -1,12 +1,12 @@
 // import { useState } from "react";
 // import axios from "axios";
-// import "./Auth1.css";
+// import "./Auth.css";
 // import { BASE_URL } from "../../helper";
 // import { useNavigate } from "react-router-dom";
 // import { FaEye, FaEyeSlash } from "react-icons/fa";
 // import { useAuth } from "../../store/storetoken";
 // // import Login from "./Login";
-// const Register = () => {
+// const RegisterIn = () => {
 //   const [formData, setFormData] = useState({
 //     username: "",
 //     emailid: "",
@@ -91,12 +91,12 @@
 //   );
 // };
 
-// export default Register;
+// export default RegisterIn;
 
 
 import { useState } from "react";
 import axios from "axios";
-import "./Auth1.css";
+import "./Auth.css";
 import { BASE_URL } from "../../helper";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -107,8 +107,11 @@ const RegisterIn = () => {
     username: "",
     emailid: "",
     password: "",
-    phone: "",
-    fundingOrMentorship: "funding", // Default selection
+    willFund: false, // Default selection
+    number: "",
+    domain: "",
+    experience: "",
+    expertise: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -125,7 +128,7 @@ const RegisterIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.password || !formData.phone) {
+    if (!formData.username || !formData.emailid || !formData.number||!formData.password || !formData.domain || !formData.experience || !formData.expertise||formData.willFund) {
       setError("All fields are required!");
       return;
     }
@@ -165,9 +168,6 @@ const RegisterIn = () => {
         <label>Email</label>
         <input type="email" name="emailid" placeholder="Enter your email" value={formData.emailid} onChange={handleChange} />
 
-        <label>Phone Number</label>
-        <input type="tel" name="phone" placeholder="Enter your phone number" value={formData.phone} onChange={handleChange} />
-
         <label>Password</label>
         <div className="password-container">
           <input
@@ -182,34 +182,54 @@ const RegisterIn = () => {
           </span>
         </div>
 
-        <label>Choose an option</label>
+        <label>Willing to Fund?</label>
         <div className="radio-group">
           <label>
             <input
               type="radio"
-              name="fundingOrMentorship"
-              value="funding"
-              checked={formData.fundingOrMentorship === "funding"}
+              name="willingToFund"
+              value="yes"
+              checked={formData.willFund === 1}
               onChange={handleChange}
             />
-            Funding
+            Yes
           </label>
           <label>
             <input
               type="radio"
-              name="fundingOrMentorship"
-              value="mentorship"
-              checked={formData.fundingOrMentorship === "mentorship"}
+              name="willingToFund"
+              value="no"
+              checked={formData.willFund=== 0}
               onChange={handleChange}
             />
-            Mentorship
+            No
           </label>
         </div>
+
+        <label>Domain</label>
+        <select name="businessType" value={formData.domain} onChange={handleChange}>
+          <option value="">Select Domain</option>
+          <option value="Manufacturing & Production">Manufacturing & Production</option>
+          <option value="Retail & E-commerce">Retail & E-commerce</option>
+          <option value="Service-Based Industry">Service-Based Industry</option>
+          <option value="Technology & IT">Technology & IT</option>
+          <option value="Social & Environmental Entrepreneurship">Social & Environmental Entrepreneurship</option>
+          <option value="Financial & Investment Services">Financial & Investment Services</option>
+        </select>
+
+        <label>Phone Number</label>
+        <input type="tel" name="number" placeholder="Enter your phone number" value={formData.number} onChange={handleChange} />
         
+        <label>Experience (in years)</label>
+        <input type="number" name="experience" placeholder="Enter experience in years" value={formData.experience} onChange={handleChange} />
+
+        <label>Expertise Field</label>
+        <input type="text" name="expertise" placeholder="Enter your expertise field" value={formData.expertise} onChange={handleChange} />
+
         <button type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
 
         <p className="redirect-text">
-          Already have an account? <span onClick={() => navigate("/login")}>Login</span>
+          Already have an account? <span onClick={() => navigate("/login/mentor")}>Login</span>
         </p>
       </form>
     </div>

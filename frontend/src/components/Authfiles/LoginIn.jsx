@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "./Auth1.css";
+import "./Auth.css";
 import { BASE_URL } from "../../helper";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/storetoken";
