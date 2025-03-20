@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config(); 
 
 const key=process.env.JWT_SECRET;
+User
 
 //REGISTER
 export const register=async (req,resp)=>{
@@ -77,10 +78,10 @@ export const login=async(req,resp)=>{
 export const details=async(req,resp)=>{
     try {
         const emailid=req.user.emailid;
-        const currentUser=await User.findOne({emailid:emailid});
+        const currentUser=await Entre.findOne({emailid:emailid});
         resp.json({username:currentUser.username});
     } catch (error) {
         console.log("there has been an error ", error);
-        resp.status(500).message("there has been an error oopsie poopsie");
+        resp.status(500).js({message: "there has been an error oopsie poopsie"});
     }
 }

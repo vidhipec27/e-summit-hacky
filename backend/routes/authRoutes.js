@@ -1,5 +1,5 @@
 import express from "express";
-import { entreLogin,entreRegister } from "../controllers/entreControllers.js";
+import { entreLogin,entreRegister, details } from "../controllers/entreControllers.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { InvestorLogin, InvestorRegister } from "../controllers/investorController.js";
 
@@ -10,7 +10,7 @@ router.post("/entre/register",entreRegister);
 router.post("/entre/login",entreLogin);
 router.post("/investor/register", InvestorRegister);
 router.post("/investor/login", InvestorLogin);
-// router.get("/details", verifyToken, details);
+router.get("/details", verifyToken, details);
 
 
 export default router;

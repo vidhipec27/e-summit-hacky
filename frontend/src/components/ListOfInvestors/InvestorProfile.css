@@ -1,0 +1,166 @@
+/* General Styles */
+.investor-container {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #2f3b47, #925c86);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Header */
+.investor-header {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Search Bar */
+.search-container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-input {
+    width: 60%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    caret-color: white;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-button {
+    padding: 12px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover {
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+}
+
+/* Investor List */
+.investor-list-container {
+    width: 90%;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    overflow-x: auto;
+}
+
+/* Table */
+.investor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.investor-table thead {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-size: 16px;
+}
+
+.investor-table th {
+    padding: 14px;
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: 600;
+}
+
+.investor-table tbody tr {
+    transition: all 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.investor-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.investor-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+    transition: 0.3s ease;
+}
+
+/* Table Cells */
+.investor-table td {
+    padding: 14px;
+    font-size: 16px;
+}
+
+/* Action Buttons */
+.contact-button, .profile-button {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.contact-button {
+    background: #007bff;
+    color: white;
+    margin-right: 8px;
+}
+
+.contact-button:hover {
+    background: #0056b3;
+}
+
+.profile-button {
+    background: #28a745;
+    color: white;
+}
+
+.profile-button:hover {
+    background: #1d7d32;
+}
+
+/* No Investors Message */
+.no-investors {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}

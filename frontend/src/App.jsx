@@ -9,6 +9,7 @@ import RegisterSelection from './components/Authfiles/RegisterSelection.jsx';
 import HomeEntre from './components/HomeEntre.jsx';
 import HomeInvestor from './components/HomeInvestor.jsx';
 import EntreConnect from './components/EntreConnect.jsx';
+import InvestorProfile from './components/ListOfInvestors/InvestorProfile.jsx';
 
 function App() {
     const router = createBrowserRouter([
@@ -43,6 +44,10 @@ function App() {
       {
         path: "/Home/investor",
         element: <><HomeInvestor /></>
+      },
+      {
+        path: "/entrepreneur/ListOfInvestors",
+        element: <><InvestorProfile /></>
       }
     ])
     return <RouterProvider router={router} />;
