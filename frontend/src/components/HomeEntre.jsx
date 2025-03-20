@@ -231,7 +231,7 @@ const HomeEntre = () => {
         ) : (
           <>
             <h1>Welcome, {username}!</h1>
-            <p>You are successfully logged in.</p>
+            {/* <p>You are successfully logged in.</p> */}
           </>
         )}
       </div>
@@ -253,7 +253,7 @@ const HomeEntre = () => {
           <div className="offer-card">
             <h3>Connect to Investors</h3>
             <p>Find potential investors to support your startup and bring your business vision to life.</p>
-            <button className="offer-btn" onClick={() => navigate("/investors")}>Get Funding</button>
+            <button className="offer-btn" onClick={() => navigate("/entrepreneur/ListOfInvestors")}>Get Funding</button>
           </div>
         </div>
       </div>
