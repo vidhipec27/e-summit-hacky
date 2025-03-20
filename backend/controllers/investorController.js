@@ -41,7 +41,7 @@ export const InvestorRegister=async (req,resp)=>{
         });
         const saveUser=await newInvestor.save();
 
-        const token=jwt.sign({emailid:emailid},key);
+        const token=jwt.sign({emailid:emailid, role: "investor"},key);
         console.log(token);
         // const userObject =  saveUser.toObject(); // we need to convert this to plain object
         // delete userObject.password;
@@ -70,7 +70,7 @@ export const InvestorLogin=async(req,resp)=>{
         if(!boolean){
             return resp.status(200).json({success: false, message:"Invalid credentials. Please check again!"});
         }
-        const token=jwt.sign({emailid:emailid},key);
+        const token=jwt.sign({emailid:emailid, role: "investor"},key);
         console.log(token);
         // const userObject = currentUser.toObject(); // we need to convert this to plain object
         // delete userObject.password;
