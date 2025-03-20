@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import axios from "axios";
 import "./Auth1.css";
@@ -10,7 +8,7 @@ import { useAuth } from "../../store/storetoken";
 // import Register from "./Register";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const Login = () => {
+const LoginIn = () => {
   const [formData, setFormData] = useState({ emailid: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,7 +33,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/login`, formData, {
+      const response = await axios.post(`${BASE_URL}/auth/investor/login`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -87,4 +85,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginIn;
