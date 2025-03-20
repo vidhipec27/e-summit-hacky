@@ -92,8 +92,6 @@
 // };
 
 // export default RegisterIn;
-
-
 import { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
@@ -107,7 +105,7 @@ const RegisterIn = () => {
     username: "",
     emailid: "",
     password: "",
-    willFund: false, // Default selection
+    willFund: "", // Default selection as empty string
     number: "",
     domain: "",
     experience: "",
@@ -119,7 +117,11 @@ const RegisterIn = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "willFund" ? (value === "yes" ? 1 : 0) : value,
+    });
   };
 
   const navigate = useNavigate();
@@ -128,7 +130,7 @@ const RegisterIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.number||!formData.password || !formData.domain || !formData.experience || !formData.expertise||formData.willFund) {
+    if (!formData.username || !formData.emailid || !formData.number || !formData.password || !formData.domain || !formData.experience || !formData.expertise || formData.willFund === "") {
       setError("All fields are required!");
       return;
     }
@@ -187,7 +189,7 @@ const RegisterIn = () => {
           <label>
             <input
               type="radio"
-              name="willingToFund"
+              name="willFund"
               value="yes"
               checked={formData.willFund === 1}
               onChange={handleChange}
@@ -197,9 +199,9 @@ const RegisterIn = () => {
           <label>
             <input
               type="radio"
-              name="willingToFund"
+              name="willFund"
               value="no"
-              checked={formData.willFund=== 0}
+              checked={formData.willFund === 0}
               onChange={handleChange}
             />
             No
@@ -207,7 +209,7 @@ const RegisterIn = () => {
         </div>
 
         <label>Domain</label>
-        <select name="businessType" value={formData.domain} onChange={handleChange}>
+        <select name="domain" value={formData.domain} onChange={handleChange}>
           <option value="">Select Domain</option>
           <option value="Manufacturing & Production">Manufacturing & Production</option>
           <option value="Retail & E-commerce">Retail & E-commerce</option>

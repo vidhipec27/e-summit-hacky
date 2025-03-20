@@ -218,7 +218,6 @@
 
 // export default RegisterE;
 
-
 import { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
@@ -241,7 +240,11 @@ const RegisterE = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "needFunding" ? (value === "yes") : value,
+    });
   };
 
   const navigate = useNavigate();
@@ -250,7 +253,7 @@ const RegisterE = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.password || !formData.number || !formData.needFunding) {
+    if (!formData.username || !formData.emailid || !formData.password || !formData.number) {
       setError("All fields are required!");
       return;
     }
@@ -314,7 +317,7 @@ const RegisterE = () => {
               type="radio"
               name="needFunding"
               value="yes"
-              checked={formData.needFunding === 1}
+              checked={formData.needFunding === true}
               onChange={handleChange}
             />
             Yes
@@ -322,9 +325,9 @@ const RegisterE = () => {
           <label>
             <input
               type="radio"
-              name="lookingForFunding"
+              name="needFunding"
               value="no"
-              checked={formData.needFunding === 0}
+              checked={formData.needFunding === false}
               onChange={handleChange}
             />
             No
