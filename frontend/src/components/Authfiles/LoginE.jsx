@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "./Auth1.css";
+import "./Auth.css";
 import { BASE_URL } from "../../helper";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/storetoken";
@@ -8,7 +8,7 @@ import { useAuth } from "../../store/storetoken";
 // import Register from "./Register";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const Login = () => {
+const LoginE = () => {
   const [formData, setFormData] = useState({ emailid: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -85,4 +85,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginE;

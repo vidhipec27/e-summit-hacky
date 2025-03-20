@@ -1,21 +1,33 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 // import Auth from './components/AuthFiles/Login.jsx';
 import Home from './components/Home.jsx';
-import Login from './components/components/Login.jsx';
-import Register from './components/components/Register.jsx';
+import LoginE from './components/Authfiles/LoginE.jsx';
+import LoginIn from './components/Authfiles/LoginIn.jsx';
+import RegisterE from './components/Authfiles/RegisterEntre.jsx';
+import RegisterIn from './components/Authfiles/RegisterInvestor.jsx';
+import RegisterSelection from './components/Authfiles/RegisterSelection.jsx';
+
 function App() {
     const router = createBrowserRouter([
       {
         path: "/",
-        element: <Navigate to = "/register" replace />
+        element: <><RegisterSelection /></>
       },
       {
-        path: "/login",
-        element: <><Login /></>
+        path: "/login/entrepreneur",
+        element: <><LoginE /></>
       },
       {
-        path: "/register",
-        element: <><Register /></>
+        path: "/login/mentor",
+        element: <><LoginIn /></>
+      },
+      {
+        path: "/register/entrepreneur",
+        element: <><RegisterE /></>
+      },
+      {
+        path: "/register/mentor",
+        element: <><RegisterIn /></>
       },
       {
         path: "/Home",
