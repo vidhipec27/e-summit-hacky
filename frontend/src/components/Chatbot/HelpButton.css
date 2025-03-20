@@ -3,7 +3,7 @@
     bottom: 20px;
     right: 20px;
     padding: 14px 28px;
-    background: linear-gradient(135deg, #ff6699, #ff99cc);
+    background: linear-gradient(135deg, #376E6F, #093b3b);
     color: white;
     border: none;
     border-radius: 50px;
@@ -17,6 +17,6 @@
 
 .help-button:hover {
     transform: scale(1.1);
-    background: linear-gradient(135deg, #ff99cc, #ffb6d9);
+    background: linear-gradient(135deg, #376E6F, #093b3b);
     box-shadow: 0 0 18px rgba(255, 182, 193, 1);
 }
