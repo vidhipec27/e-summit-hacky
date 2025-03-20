@@ -194,6 +194,126 @@
   width: 100%;
   padding-right: 40px; /* Space for eye icon */
 /* } */
+
+/* 
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #2F4454, #376E6F, #DA7B93);
+  text-align: center;
+}
+
+.auth-form {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 400px;
+}
+
+.auth-form h2, .auth-container h2 {
+  color: #DA7B93;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.auth-form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+  color: #DA7B93;
+  font-weight: bold;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background: #1C3334;
+  color: #fff;
+  outline: none;
+  font-size: 16px;
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.auth-form button, .role-button {
+  width: 100%;
+  padding: 14px;
+  background: #DA7B93;
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  font-weight: bold;
+}
+
+.auth-form button:hover, .role-button:hover {
+  background: #2E151B;
+}
+
+.redirect-text {
+  color: #DA7B93;
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.redirect-text span {
+  color: #DA7B93;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.redirect-text span:hover {
+  color: #2E151B;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #376E6F;
+  font-size: 20px;
+  transition: color 0.3s ease-in-out;
+}
+
+.eye-icon:hover {
+  color: #DA7B93;
+}
+
+.role-selection {
+  display: flex;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.role-button {
+  width: 200px;
+} */
+
+
 .auth-container {
   display: flex;
   justify-content: center;
@@ -309,4 +429,17 @@
 
 .role-button {
   width: 200px;
+}
+
+.auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
