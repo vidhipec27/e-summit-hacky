@@ -1,0 +1,53 @@
+/* Container for authentication selection */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #2F4454, #376E6F, #942944);
+    text-align: center;
+    overflow-y: auto;
+  }
+  
+  /* Selection card styles */
+  .auth-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    width: 450px;
+    text-align: center;
+  }
+  
+  .auth-card h2 {
+    color: #942944;
+    margin-bottom: 25px;
+    font-size: 24px;
+  }
+  
+  /* Role selection buttons */
+  .role-selection {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .role-button {
+    width: 220px;
+    padding: 14px;
+    background: #942944;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    font-weight: bold;
+  }
+  
+  .role-button:hover {
+    background: #2E151B;
+  }
+  

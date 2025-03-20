@@ -243,7 +243,7 @@ const HomeEntre = () => {
           <div className="offer-card">
             <h3>Connect to Peer Entrepreneurs</h3>
             <p>Network with ambitious entrepreneurs, share ideas, and grow together in a thriving business community.</p>
-            <button className="offer-btn" onClick={() => navigate("/peer-entrepreneurs")}>Connect</button>
+            <button className="offer-btn" onClick={() => navigate("/entreconnect")}>Connect</button>
           </div>
           <div className="offer-card">
             <h3>Connect to Mentors</h3>
