@@ -13,9 +13,11 @@ app.use(express.json());
 
 import authRoutes from "./routes/authRoutes.js";
 import searchRoutes from "./routes/searchRoute.js";
+import chatbotRoutes from "./routes/chatbotRoutes.js";
 
 app.use("/auth",authRoutes);
 app.use("/search", searchRoutes);
+app.use("/api", chatbotRoutes);
 
 app.listen(5050,()=>{
     connectDb()

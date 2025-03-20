@@ -40,6 +40,7 @@ const LoginE = () => {
       if (response.data.success) {
         storeTokeninLS(response.data.token);
         navigate("/Home/entrepreneur");
+        navigate("/Home/entrepreneur");
       } else {
         alert("Login not successful! Try again");
       }

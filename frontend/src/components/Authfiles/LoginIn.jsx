@@ -39,7 +39,7 @@ const LoginIn = () => {
 
       if (response.data.success) {
         storeTokeninLS(response.data.token);
-        navigate("/Home");
+        navigate("/Home/investor");
       } else {
         alert("Login not successful! Try again");
       }
@@ -78,7 +78,7 @@ const LoginIn = () => {
         <button type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
 
         <p className="redirect-text">
-          Don't have an account? <span onClick={() => navigate("/register")}>Register</span>
+          Don't have an account? <span onClick={() => navigate("/")}>Register</span>
         </p>
       </form>
     </div>

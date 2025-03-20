@@ -5,11 +5,14 @@ import "./Home.css";
 import { BASE_URL } from "../helper";
 import { getFromBackend } from "../store/fetchdata";
 import Navbar from "./Navbar";
+import HelpButton from "./Chatbot/HelpButton";  
+import HelpChat from "./Chatbot/HelpChat";  
 
 const HomeInvestor = () => {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,14 +38,12 @@ const HomeInvestor = () => {
     fetchUserDetails();
   }, []);
 
-  const handleLogout = () =>{
-    //localStorage.removeItem("token");//
+  const handleLogout = () => {
     navigate("/");
   };
 
   return (
     <div className="home-container">
-      {/* Navbar at the top */}
       <Navbar handleLogout={handleLogout} />
 
       <div className="content">
@@ -60,6 +61,10 @@ const HomeInvestor = () => {
           </>
         )}
       </div>
+
+      {/* Help Button and Help Chat */}
+      <HelpButton onClick={() => setIsChatOpen(true)} />
+      {isChatOpen && <HelpChat onClose={() => setIsChatOpen(false)} />}
     </div>
   );
 };
