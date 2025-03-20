@@ -44,11 +44,11 @@ export default function HelpChat({ onClose }) {
     return (
         <div className="help-chat">
             <div className="help-chat-header">
-                <h2>OneWorld Bot</h2>
+                <h2>EntreConnect Bot</h2>
                 <button className="help-chat-close" onClick={onClose}>✕</button>
             </div>
             <div className="help-chat-body">
-                {messages.length === 0 && <p className="placeholder-text">Here to help, chat away, or give suggestions!</p>}
+                {messages.length === 0 && <p className="placeholder-text">A friendly bot to help through your entrepreneurial pursuits!</p>}
                 {messages.map((msg, index) => (
                     <div key={index} className={`message ${msg.role === "user" ? "user-message" : "bot-message"}`}>
                         {msg.content}

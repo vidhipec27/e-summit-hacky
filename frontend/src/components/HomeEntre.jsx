@@ -63,7 +63,7 @@ const HomeEntre = () => {
       </div>
 
       {/* Help Button and Help Chat */}
-      <HelpButton onClick={() => setIsChatOpen(true)} />
+      {!isChatOpen && <HelpButton onClick={() => setIsChatOpen(true)} />}
       {isChatOpen && <HelpChat onClose={() => setIsChatOpen(false)} />}
     </div>
   );
