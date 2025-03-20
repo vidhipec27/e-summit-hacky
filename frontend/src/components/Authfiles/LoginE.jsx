@@ -33,7 +33,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/login`, formData, {
+      const response = await axios.post(`${BASE_URL}/auth/entre/login`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 

@@ -36,7 +36,7 @@ const RegisterE = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/register`, formData, {
+      const response = await axios.post(`${BASE_URL}/auth/entre/register`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
