@@ -7,7 +7,7 @@ import { BASE_URL } from "../helper";
 import { getFromBackend } from "../store/fetchdata";
 import Navbar from "./Navbar";
 
-const Home = () => {
+const HomeEntre = () => {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -52,7 +52,7 @@ const Home = () => {
         ) : error ? (
           <>
             <p className="error-message">{error}</p>
-            <button className="home-btn" onClick={() => navigate("/login")}>Go to Login</button>
+            <button className="home-btn" onClick={() => navigate("/login/entre")}>Go to Login</button>
           </>
         ) : (
           <>
@@ -65,4 +65,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeEntre;
