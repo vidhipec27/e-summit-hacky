@@ -10,6 +10,7 @@ import HomeEntre from './components/HomeEntre.jsx';
 import HomeInvestor from './components/HomeInvestor.jsx';
 import EntreConnect from './components/EntreConnect.jsx';
 import InvestorProfile from './components/ListOfInvestors/InvestorProfile.jsx';
+import ChatPage from './components/Chatbox/chatbox.jsx';
 
 function App() {
     const router = createBrowserRouter([
@@ -48,6 +49,10 @@ function App() {
       {
         path: "/entrepreneur/ListOfInvestors",
         element: <><InvestorProfile /></>
+      },
+      {
+        path: "/chatbox",
+        element: <><ChatPage /></>
       }
     ])
     return <RouterProvider router={router} />;
