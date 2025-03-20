@@ -1,11 +1,12 @@
 import express from "express";
-import { register, login, details } from "../src/controllers/authController.js";
+import { entreLogin,entreRegister } from "../controllers/entreControllers.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router=express.Router();
 
-router.post("/register",register);
-router.post("/login",login);
+//entrepreneur routes
+router.post("/entre/register",entreRegister);
+router.post("/entre/login",entreLogin);
 router.get("/details", verifyToken, details);
 
 
