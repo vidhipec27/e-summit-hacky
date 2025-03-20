@@ -50,6 +50,7 @@
 
 
    /* Home Page Styles */
+/* Home Page Styles */
 .home-container {
     display: flex;
     flex-direction: column;
@@ -59,49 +60,80 @@
     background: linear-gradient(135deg, #2F4454, #376E6F, #DA7B93);
     text-align: center;
     overflow-y: auto;
-  }
-  
-  /* Header */
-  .home-header {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #FFFFFF;
-    margin-bottom: 20px;
-  }
-  
-  /* Subheading */
-  .home-subtext {
-    font-size: 1.5rem;
-    color: #EAEAEA;
-    margin-bottom: 30px;
-    max-width: 600px;
+    padding: 20px;
+}
+
+/* Offers Section */
+.offers-section {
     text-align: center;
-  }
-  
-  /* Button */
-  .home-btn {
-    padding: 15px 30px;
-    font-size: 1.2rem;
+    margin-top: 40px;
+}
+
+.offers-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Offers Container */
+.offers-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Offer Cards */
+.offer-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.offer-card .offer-btn {
+    margin-top: auto;
+    align-self: center;
+}
+
+.offer-card:hover {
+    transform: translateY(-5px);
+}
+
+.offer-card h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.offer-card p {
+    font-size: 1rem;
+    color: #f1f1f1;
+    margin-bottom: 15px;
+}
+
+/* Offer Buttons */
+.offer-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
     background: #DA7B93;
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease-in-out;
-  }
-  
-  .home-btn:hover {
+}
+
+.offer-btn:hover {
     background: #2E151B;
-  }
-  
-  /* Gradient Overlay */
-  .home-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
-  }
+}
