@@ -17,12 +17,23 @@ const schema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    needFunding:{
+    willFund:{
         type:Boolean,
         required:true,
     },
+    domain:{
+        type:String,
+        required:true,
+    },
+    experience:{
+        type:String,
+    },
+    expertise:{
+        type:String
+    }
+
     },
     {timestamps:true}
 )
-const Entre=mongoose.model("entrep",schema);
-export default Entre;
+const Investor=mongoose.model("investor",schema);
+export default Investor;
