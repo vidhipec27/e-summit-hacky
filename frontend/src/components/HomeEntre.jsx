@@ -245,14 +245,14 @@ const HomeEntre = () => {
             <p>Network with ambitious entrepreneurs, share ideas, and grow together in a thriving business community.</p>
             <button className="offer-btn" onClick={() => navigate("/entreconnect")}>Connect</button>
           </div>
-          <div className="offer-card">
+          {/* <div className="offer-card">
             <h3>Connect to Mentors</h3>
             <p>Gain insights and guidance from experienced mentors who can help you navigate your entrepreneurial journey.</p>
             <button className="offer-btn" onClick={() => navigate("/mentors")}>Find Mentors</button>
-          </div>
+          </div> */}
           <div className="offer-card">
             <h3>Connect to Investors</h3>
-            <p>Find potential investors to support your startup and bring your business vision to life.</p>
+            <p>Find potential investors and gain insights to support your startup and bring your business vision to life.</p>
             <button className="offer-btn" onClick={() => navigate("/entrepreneur/ListOfInvestors")}>Get Funding</button>
           </div>
         </div>
