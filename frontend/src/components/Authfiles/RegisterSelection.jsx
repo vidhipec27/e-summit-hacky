@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 
-const LoginSelection = () => {
+const RegisterSelection = () => {
   const navigate = useNavigate();
 
   return (
@@ -10,10 +10,10 @@ const LoginSelection = () => {
       <p>Choose your role to continue</p>
 
       <div className="role-selection">
-        <button className="role-button" onClick={() => navigate("/register")}>
+        <button className="role-button" onClick={() => navigate("/register/entrepreneur")}>
           Register as Entrepreneur
         </button>
-        <button className="role-button" onClick={() => navigate("/resgiter")}>
+        <button className="role-button" onClick={() => navigate("/register/mentor")}>
           Register as Investor / Mentor
         </button>
       </div>

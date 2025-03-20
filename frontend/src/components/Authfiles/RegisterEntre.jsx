@@ -232,8 +232,8 @@ const RegisterE = () => {
     username: "",
     emailid: "",
     password: "",
-    phone: "",
-    lookingForFunding: "no", // Default selection
+    number: "",
+    needFunding: false, // Default selection
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -250,7 +250,7 @@ const RegisterE = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.password || !formData.phone || !formData.lookingForFunding) {
+    if (!formData.username || !formData.emailid || !formData.password || !formData.number || !formData.needFunding) {
       setError("All fields are required!");
       return;
     }
@@ -291,7 +291,7 @@ const RegisterE = () => {
         <input type="email" name="emailid" placeholder="Enter your email" value={formData.emailid} onChange={handleChange} />
 
         <label>Phone Number</label>
-        <input type="tel" name="phone" placeholder="Enter your phone number" value={formData.phone} onChange={handleChange} />
+        <input type="tel" name="number" placeholder="Enter your phone number" value={formData.number} onChange={handleChange} />
 
         <label>Password</label>
         <div className="password-container">
@@ -312,9 +312,9 @@ const RegisterE = () => {
           <label>
             <input
               type="radio"
-              name="lookingForFunding"
+              name="needFunding"
               value="yes"
-              checked={formData.lookingForFunding === 1}
+              checked={formData.needFunding === 1}
               onChange={handleChange}
             />
             Yes
@@ -324,7 +324,7 @@ const RegisterE = () => {
               type="radio"
               name="lookingForFunding"
               value="no"
-              checked={formData.lookingForFunding === 0}
+              checked={formData.needFunding === 0}
               onChange={handleChange}
             />
             No
