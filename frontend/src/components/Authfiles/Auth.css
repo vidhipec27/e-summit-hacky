@@ -1,0 +1,101 @@
+
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #1e3c72, #2a5298, #d53369);
+}
+
+.auth-form {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 350px;
+}
+
+.auth-form h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.auth-form label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  outline: none;
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 10px;
+  background: #ff7eb3;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.auth-form button:hover {
+  background: #ff4f81;
+}
+
+.redirect-text {
+  color: #fff;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.redirect-text span {
+  color: #ff7eb3;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.redirect-text span:hover {
+  color: #ff4f81;
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Space for eye icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+}
+.eye-icon:hover {
+  color: #333;
+}
