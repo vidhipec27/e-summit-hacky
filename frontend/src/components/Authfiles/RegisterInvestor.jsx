@@ -107,8 +107,9 @@ const RegisterIn = () => {
     username: "",
     emailid: "",
     password: "",
-    willingToFund: "no", // Default selection
-    businessType: "",
+    willFund: false, // Default selection
+    number: "",
+    domain: "",
     experience: "",
     expertise: "",
   });
@@ -127,7 +128,7 @@ const RegisterIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.password || !formData.businessType || !formData.experience || !formData.expertise) {
+    if (!formData.username || !formData.emailid || !formData.number||!formData.password || !formData.domain || !formData.experience || !formData.expertise||formData.willFund) {
       setError("All fields are required!");
       return;
     }
@@ -136,7 +137,7 @@ const RegisterIn = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/inverstor/registor`, formData, {
+      const response = await axios.post(`${BASE_URL}/auth/investor/register`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -188,7 +189,7 @@ const RegisterIn = () => {
               type="radio"
               name="willingToFund"
               value="yes"
-              checked={formData.willingToFund === 1}
+              checked={formData.willFund === 1}
               onChange={handleChange}
             />
             Yes
@@ -198,16 +199,16 @@ const RegisterIn = () => {
               type="radio"
               name="willingToFund"
               value="no"
-              checked={formData.willingToFund === 0}
+              checked={formData.willFund=== 0}
               onChange={handleChange}
             />
             No
           </label>
         </div>
 
-        <label>Business Type</label>
-        <select name="businessType" value={formData.businessType} onChange={handleChange}>
-          <option value="">Select Business Type</option>
+        <label>Domain</label>
+        <select name="businessType" value={formData.domain} onChange={handleChange}>
+          <option value="">Select Domain</option>
           <option value="Manufacturing & Production">Manufacturing & Production</option>
           <option value="Retail & E-commerce">Retail & E-commerce</option>
           <option value="Service-Based Industry">Service-Based Industry</option>
@@ -216,6 +217,9 @@ const RegisterIn = () => {
           <option value="Financial & Investment Services">Financial & Investment Services</option>
         </select>
 
+        <label>Phone Number</label>
+        <input type="tel" name="number" placeholder="Enter your phone number" value={formData.number} onChange={handleChange} />
+        
         <label>Experience (in years)</label>
         <input type="number" name="experience" placeholder="Enter experience in years" value={formData.experience} onChange={handleChange} />
 
