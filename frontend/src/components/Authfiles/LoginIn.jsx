@@ -3,19 +3,16 @@ import axios from "axios";
 import "./Auth1.css";
 import { BASE_URL } from "../../helper";
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../../store/storetoken";
-// import Login from "./Login";
-const Register = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    emailid: "",
-    password: "",
-  });
+// import Register from "./Register";
+// import Register from "./Register";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-  const [showPassword, setShowPassword] = useState(false);
+const LoginIn = () => {
+  const [formData, setFormData] = useState({ emailid: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.password) {
+    if (!formData.emailid || !formData.password) {
       setError("All fields are required!");
       return;
     }
@@ -36,20 +33,18 @@ const Register = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/register`, formData, {
+      const response = await axios.post(`${BASE_URL}/auth/login`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
-      console.log(response.data);
       if (response.data.success) {
-        // alert("Registration successful! Please log in.");
         storeTokeninLS(response.data.token);
         navigate("/Home");
       } else {
-        alert("Registration failed! Try again");
+        alert("Login not successful! Try again");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed. Please try again.");
+      setError(err.response?.data?.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -58,15 +53,13 @@ const Register = () => {
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Register</h2>
+        <h2>Login</h2>
 
         {error && <p className="error-message">{error}</p>}
 
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Enter your username" value={formData.username} onChange={handleChange} />
-
         <label>Email</label>
         <input type="email" name="emailid" placeholder="Enter your email" value={formData.emailid} onChange={handleChange} />
+
         <label>Password</label>
         <div className="password-container">
           <input
@@ -79,16 +72,17 @@ const Register = () => {
           <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
-        </div>        
-        
-        <button type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
+        </div>
+
+
+        <button type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
 
         <p className="redirect-text">
-          Already have an account? <span onClick={() => navigate("/login")}>Login</span>
+          Don't have an account? <span onClick={() => navigate("/register")}>Register</span>
         </p>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default LoginIn;
