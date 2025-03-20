@@ -213,7 +213,7 @@ const EntreConnect = () => {
         <button onClick={openGoogleForm}>Fill the Form</button>
         <input 
           type="text" 
-          placeholder="Enter your name" 
+          placeholder="Enter your Email" 
           value={name} 
           onChange={handleNameChange} 
           disabled={loading} 
@@ -230,9 +230,9 @@ const EntreConnect = () => {
             {matches.map((match, idx) => (
               <div key={idx} className="match-card">
                 <h3>{match.Name}</h3>
-                <p>Business Stage: {match["What stage is your current business in?"]}</p>
+                <p>Email: {match["Email"]}</p>
                 <p>Experience: {match["How many years of experience do you have in entrepreneurship?"]} years</p>
-                <p>Risk Tolerance: {match["How risk-tolerant are you in business decisions? (Scale of 1-5)"]}/5</p>
+                <p>Age Group: {match["What is your age-group?"]}</p>
               </div>
             ))}
           </div>
