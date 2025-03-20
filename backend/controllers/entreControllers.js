@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Entre from "../models/entre";
+import Entre from "../models/entre.js";
 import dotenv from 'dotenv'; 
 dotenv.config(); 
 
