@@ -11,6 +11,9 @@ import HomeInvestor from './components/HomeInvestor.jsx';
 import EntreConnect from './components/EntreConnect.jsx';
 import InvestorProfile from './components/ListOfInvestors/InvestorProfile.jsx';
 import ChatPage from './components/Chatbox/chatbox.jsx';
+// import ProfileInvestors from './components/ProfileInvestors.jsx';
+// import ProfileInvestors from './components/ProfileInvestor.jsx';
+import ProfileInvestors from './components/ProfileInvestor.jsx';
 
 function App() {
     const router = createBrowserRouter([
@@ -51,9 +54,13 @@ function App() {
         element: <><InvestorProfile /></>
       },
       {
-        path: "/chatbox",
+        path: "/chatbox/:emailid",
         element: <><ChatPage /></>
-      }
+      },
+      {
+        path: "/profileIn/:emailid",
+        element: <><ProfileInvestors /></>
+      },
     ])
     return <RouterProvider router={router} />;
 }

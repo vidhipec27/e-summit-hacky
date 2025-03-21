@@ -82,7 +82,7 @@ export default function InvestorProfile() {
                     </button>
                     <button
                       className="profile-button"
-                      onClick={() => navigate(`/investor_profile?email=${investor.emailid}`)}
+                      onClick={() => navigate(`/profileIn/${investor.emailid}`)}
                     >
                       View Profile
                     </button>
