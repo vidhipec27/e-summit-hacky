@@ -8,7 +8,7 @@ const Navbar = ({ handleLogout }) => {
   return (
     <nav className="navbar">
       {/* Home button redirects to Home.jsx */}
-      <div className="logo" onClick={() => navigate("/")}>MyApp</div>
+      <div className="logo" onClick={() => navigate("/")}>Entre-Connect</div>
 
       <div className="nav-links">
         <button onClick={() => navigate("/")}>Home</button>
