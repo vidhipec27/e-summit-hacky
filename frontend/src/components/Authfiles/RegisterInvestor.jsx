@@ -146,7 +146,7 @@ const RegisterIn = () => {
       console.log(response.data);
       if (response.data.success) {
         storeTokeninLS(response.data.token);
-        navigate("/Home");
+        navigate("/Home/investor");
       } else {
         alert("Registration failed! Try again");
       }
@@ -221,7 +221,7 @@ const RegisterIn = () => {
 
         <label>Phone Number</label>
         <input type="tel" name="number" placeholder="Enter your phone number" value={formData.number} onChange={handleChange} />
-        
+
         <label>Experience (in years)</label>
         <input type="number" name="experience" placeholder="Enter experience in years" value={formData.experience} onChange={handleChange} />
 
