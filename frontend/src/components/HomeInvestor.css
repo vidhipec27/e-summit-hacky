@@ -1,5 +1,3 @@
-/* HomeInvestor.css */
-
 :root {
     --primary-dark: #2F4454;
     --secondary-dark: #2E151B;
@@ -21,12 +19,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
     padding: 20px;
+    text-align: center;
   }
   
   .content {
-    text-align: center;
     margin: 20px 0;
   }
   
@@ -61,60 +60,72 @@
     background-color: var(--secondary-dark);
   }
   
+  /* Offer Section */
   .offers-section {
     margin-top: 40px;
     text-align: center;
     width: 100%;
-    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
+  /* Updated Font Color */
   .offers-title {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--accent-green);
+    color: var(--accent-pink); /* Changed to pink for better contrast */
     margin-bottom: 20px;
   }
   
+  /* Offer Card */
+  .offer-card {
+    background-color: var(--deep-green);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Centering the Offer Card */
   .offers-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .offer-card {
-    background-color: var(--deep-green);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    transition: transform 0.3s ease-in-out;
+    width: 100%;
   }
   
   .offer-card h3 {
     color: var(--accent-pink);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 10px;
   }
   
   .offer-card p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-light);
     margin-bottom: 15px;
   }
   
+  /* Pop Animation */
   .offer-card:hover {
     transform: scale(1.05);
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.4);
   }
   
   .offer-btn {
     background-color: var(--accent-pink);
     color: var(--text-light);
     border: none;
-    padding: 10px 15px;
+    padding: 12px 18px;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 8px;
     transition: background 0.3s ease-in-out;
   }
   
@@ -122,45 +133,83 @@
     background-color: var(--secondary-dark);
   }
   
-  /* Help Chat and Button */
+  /* Modern Chatbot Button */
+  /* .help-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--accent-green), var(--deep-green));
+    color: var(--text-light);
+    border: none;
+    padding: 16px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+  }
+  
+  .help-button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, var(--deep-green), var(--accent-green));
+  } */
+
   .help-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--accent-green);
+    background: linear-gradient(135deg, var(--accent-green), var(--deep-green));
     color: var(--text-light);
     border: none;
-    padding: 12px 16px;
-    font-size: 1rem;
+    padding: 12px 24px; /* Adjusted for rectangular shape */
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
-    border-radius: 50%;
-    transition: background 0.3s ease-in-out;
+    border-radius: 20px; /* Creates a rectangular shape with rounded edges */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
   }
   
+  /* Hover Effect */
   .help-button:hover {
-    background-color: var(--deep-green);
+    transform: scale(1.05);
+    background: linear-gradient(135deg, var(--deep-green), var(--accent-green));
   }
   
-  .help-chat {
+  
+  /* Chatbox */
+ /* Chatbox */
+.help-chat {
     position: fixed;
-    bottom: 80px;
+    bottom: 20px; /* Adjusted to keep it closer to the bottom */
     right: 20px;
-    width: 300px;
-    height: 400px;
+    width: 350px;
+    max-height: 80vh; /* Ensures it doesn't go beyond 80% of the viewport height */
     background-color: var(--primary-dark);
     border: 2px solid var(--accent-green);
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
   
+  /* Ensure Chatbox Stays Within Screen */
+  @media (max-height: 600px) {
+    .help-chat {
+      bottom: 10px; /* Moves it lower on smaller screens */
+      max-height: 70vh;
+    }
+  }
+  
+  
+  /* Responsive Adjustments */
   @media (max-width: 768px) {
-    .offers-container {
-      flex-direction: column;
-      align-items: center;
+    .offer-card {
+      width: 90%;
     }
   
-    .offer-card {
+    .help-chat {
       width: 90%;
     }
   }
