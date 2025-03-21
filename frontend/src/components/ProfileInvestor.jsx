@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../helper';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './ProfileInvestors.css';
 
 const ProfileInvestors = () => {
-    const { email } = useParams(); // Extract email from route params
+    const { emailid } = useParams(); // Extract email from route params
     const [userProfile, setUserProfile] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -12,7 +13,14 @@ const ProfileInvestors = () => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await fetch(`/api/userProfile?email=${email}`); // Replace with your API endpoint
+                const response = await fetch(`${BASE_URL}/search/investor/details`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ emailid }), // Send email in request body
+                });
+                
                 if (!response.ok) {
                     throw new Error('Failed to fetch user profile');
                 }
@@ -36,7 +44,7 @@ const ProfileInvestors = () => {
         };
 
         fetchUserProfile();
-    }, [email]);
+    }, [emailid]); // Corrected dependency array
 
     if (loading) {
         return <p>Loading profile...</p>;
