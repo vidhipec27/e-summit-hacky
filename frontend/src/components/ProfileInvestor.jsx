@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../helper';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './ProfileInvestors.css';
+import { postToBackend } from '../store/fetchdata';
 
 const ProfileInvestors = () => {
     const { emailid } = useParams(); // Extract email from route params
@@ -13,25 +14,15 @@ const ProfileInvestors = () => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/search/investor/details`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ emailid }), // Send email in request body
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user profile');
-                }
-                const data = await response.json();
-                setUserProfile(data);
+                console.log(emailid);
+                const response = await postToBackend(`${BASE_URL}/search/investor/details`, {emailid: emailid});
+                console.log("something something", response);
+                setUserProfile(response.data.result[0]);
             } catch (error) {
                 console.error('Error fetching user profile:', error);
                 setUserProfile({
                     username: 'Guest',
                     emailid: 'guest@example.com',
-                    password: 'password',
                     number: '0000000000',
                     domain: 'General',
                     experience: 0,
@@ -57,7 +48,6 @@ const ProfileInvestors = () => {
     return (
         <div className="profile-container">
             <div className="profile-card">
-                <h1 className="profile-title">✨ Your Profile ✨</h1>
 
                 <div className="profile-form-group">
                     <label className="profile-label">👤 Username:</label>
@@ -67,21 +57,6 @@ const ProfileInvestors = () => {
                 <div className="profile-form-group">
                     <label className="profile-label">📧 Email:</label>
                     <p className="profile-value">{userProfile.emailid || 'Not available'}</p>
-                </div>
-
-                <div className="profile-form-group">
-                    <label className="profile-label">🔒 Password:</label>
-                    <div className="password-container">
-                        <p className="profile-value">
-                            {showPassword ? userProfile.password : '••••••'}
-                        </p>
-                        <span
-                            className="eye-icon"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                    </div>
                 </div>
 
                 <div className="profile-form-group">

@@ -9,5 +9,5 @@ const router=express.Router();
 router.get("/investor", verifyToken, searchInvestor);
 router.get("/investor/:domain", verifyToken, searchInvestorDomain);
 router.get("/entre",verifyToken,searchEntre)
-router.post("/investor/details", getInvestorDetails);
+router.post("/investor/details", verifyToken, getInvestorDetails);
 export default router;

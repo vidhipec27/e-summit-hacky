@@ -3,7 +3,8 @@ import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "./chatbox.css";
-
+import { postToBackend } from "../../store/fetchdata";
+import { BASE_URL } from "../../helper";
 const SOCKET_SERVER_URL = "http://localhost:5050";
 
 const ChatPage = () => {
@@ -11,6 +12,8 @@ const ChatPage = () => {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
+  const [userProfile, setUserProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
   const messagesEndRef = useRef(null);
 
   const getUserDetails = () => {
@@ -28,6 +31,31 @@ const ChatPage = () => {
   const user = getUserDetails();
   const userEmail = user?.email;
   const userRole = user?.role;
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        console.log("Fetching profile for:", emailid);
+        const response = await postToBackend(`${BASE_URL}/search/investor/details`, { emailid });
+        console.log("Profile response:", response);
+        setUserProfile(response.data.result[0]);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+        setUserProfile({
+          username: "Guest",
+          emailid: "guest@example.com",
+          number: "0000000000",
+          domain: "General",
+          experience: 0,
+          expertise: "None",
+          willFund: 0,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserProfile();
+  }, [emailid]);
 
   useEffect(() => {
     if (!userEmail || !userRole) return;
@@ -88,13 +116,10 @@ const ChatPage = () => {
 
   return (
     <div className="chat-container">
-      <h2>Chat with {emailid}</h2>
+      <h2>{loading ? "Loading chat..." : `Chat with ${userProfile?.username || "Guest"}`}</h2>
       <div className="chat-box">
         {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`message ${msg.senderId === userEmail ? "sent" : "received"}`}
-          >
+          <div key={index} className={`message ${msg.senderId === userEmail ? "sent" : "received"}`}>
             <span>{msg.text}</span>
           </div>
         ))}

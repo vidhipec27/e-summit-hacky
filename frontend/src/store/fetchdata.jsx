@@ -27,7 +27,7 @@ export const getFromBackend = async (link) => {
         return Error('Token not found')
       }
       const response=await axios.post(link, data,{
-        headers:{'Authorization':`Bearer${token}`,
+        headers:{'Authorization':`Bearer ${token}`,
                   'Content-Type':'application/json'
       },
     });
