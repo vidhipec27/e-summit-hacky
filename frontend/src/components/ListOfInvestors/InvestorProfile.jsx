@@ -76,7 +76,7 @@ export default function InvestorProfile() {
                   <td>
                     <button
                       className="contact-button"
-                      onClick={() => navigate(`/message/${investor.emailid}`)}
+                      onClick={() => navigate(`/chatbox/${investor.emailid}`)}
                     >
                       Contact
                     </button>

@@ -26,3 +26,14 @@ export const searchInvestor = async(req, resp) => {
         resp.status(500).send(error);
     }
 }
+
+export const getInvestorDetails = async(req, resp) => {
+    try {
+        const email = req.body.emailid;
+        const result = await Investor.find({emailid: email});
+        resp.status(200).json({success:true,result});
+    } catch (error) {
+        console.log("error in searching investors", error);
+        resp.status(500).send(error);
+    }
+}
