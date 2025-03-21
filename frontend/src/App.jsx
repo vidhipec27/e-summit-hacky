@@ -51,7 +51,7 @@ function App() {
         element: <><InvestorProfile /></>
       },
       {
-        path: "/chatbox",
+        path: "/chatbox/:emailid",
         element: <><ChatPage /></>
       }
     ])
