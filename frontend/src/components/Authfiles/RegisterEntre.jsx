@@ -269,7 +269,7 @@ const RegisterE = () => {
       console.log(response.data);
       if (response.data.success) {
         storeTokeninLS(response.data.token);
-        navigate("/Home");
+        navigate("/Home/entrepreneur");
       } else {
         alert("Registration failed! Try again");
       }
