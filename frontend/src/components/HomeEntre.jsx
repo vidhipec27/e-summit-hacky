@@ -230,7 +230,7 @@ const HomeEntre = () => {
           </>
         ) : (
           <>
-            <h1>Welcome, {username}!</h1>
+            <h1 className="heading-welcome">Welcome, {username}!</h1> 
             {/* <p>You are successfully logged in.</p> */}
           </>
         )}
