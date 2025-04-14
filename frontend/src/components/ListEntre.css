@@ -2,8 +2,9 @@
 .entrepreneur-container {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(135deg, #2F4454, #376E6F, #942944);
+    background: linear-gradient( #0B0C10,#2a0944, #0f171f) !important;
     display: flex;
+    /* 135deg, #2F4454, #376E6F, #942944*/
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
