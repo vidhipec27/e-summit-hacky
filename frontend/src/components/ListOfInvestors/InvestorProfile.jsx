@@ -37,7 +37,7 @@ export default function InvestorProfile() {
     <div className="investor-container">
       {/* Header */}
       <div className="investor-header">
-        <h1>Connect with investors</h1>
+        <h1 className="Investor">Connect with investors</h1>
       </div>
 
       {/* Search Bar */}
