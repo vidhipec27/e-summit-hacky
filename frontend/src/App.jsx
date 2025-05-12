@@ -11,6 +11,7 @@ import HomeInvestor from './components/HomeInvestor.jsx';
 import EntreConnect from './components/EntreConnect.jsx';
 import InvestorProfile from './components/ListOfInvestors/InvestorProfile.jsx';
 import ChatPage from './components/Chatbox/chatbox.jsx';
+import EntrepreneurProfile from './components/ListEntre.jsx';
 // import ProfileInvestors from './components/ProfileInvestors.jsx';
 // import ProfileInvestors from './components/ProfileInvestor.jsx';
 import ProfileInvestors from './components/ProfileInvestor.jsx';
@@ -52,6 +53,10 @@ function App() {
       {
         path: "/entrepreneur/ListOfInvestors",
         element: <><InvestorProfile /></>
+      },
+      {
+        path: "/investor/ListOfEntre",
+        element: <><EntrepreneurProfile /></>
       },
       {
         path: "/chatbox/:emailid",

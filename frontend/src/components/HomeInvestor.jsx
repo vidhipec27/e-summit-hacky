@@ -247,7 +247,7 @@ const HomeInvestor = () => {
         <div className="offer-card">
           <h3>Look for Eligible Entrepreneurs</h3>
           <p>Invest your funds in promising startups and grow your portfolio.</p>
-          <button className="offer-btn" onClick={() => navigate("/eligible-entrepreneurs")}>
+          <button className="offer-btn" onClick={() => navigate("/investor/ListOfEntre")}>
             Explore Now
           </button>
         </div>
