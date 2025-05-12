@@ -36,10 +36,11 @@
 **Backend:**
 - Node.js with Express
 - MongoDB for data storage
+- Socket.io for real time messaging
 - Flask for peer-connect model
 
 **AI Chatbot:**
-- Gemini API  integration \
+- Gemini API  integration 
 - Custom context.js
 
 ## Team Members:
