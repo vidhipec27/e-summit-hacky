@@ -38,6 +38,7 @@ import { createServer } from "http"; // ✅ Correct ES module import
 import { connectDb } from "./db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
 import { initializeSocket } from "./socket.js";
+import { addFeedback } from "./controllers/entreControllers.js";
 
 dotenv.config(); // ✅ Load environment variables
 
@@ -61,6 +62,7 @@ app.use("/search", searchRoutes);
 app.use("/api", chatbotRoutes);
 app.use("/api/conversations", verifyToken, conversationRoutes);
 app.use("/api/messages", verifyToken, messageRoutes);
+app.use("/addFeedback/:emailid",verifyToken, addFeedback);
 
 // ✅ Start server and connect database
 const PORT = process.env.PORT || 5050;

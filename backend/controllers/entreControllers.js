@@ -88,22 +88,40 @@ export const details=async(req,resp)=>{
     try {
         const emailid=req.user.emailid;
         const currentUser=await Entre.findOne({emailid:emailid});
+        console.log("printing->>>>>>>>>>>>>>>>>>",currentUser.username);
         resp.json({username:currentUser.username});
     } catch (error) {
         console.log("there has been an error ", error);
-        resp.status(500).message("there has been an error oopsie poopsie");
+        resp.status(500).json("there has been an error oopsie poopsie");
     }
 }
 
-// export const getEntreScore=async(req,resp)=>{
-//     try{
-//         const entry=await Entre.find();
-//         const score=entry.feedback?(((entry.startupStage*20)+(entry.teamSize*4)+
-//     (entry.experience*7)+(entry.feedback*15))*0.581):(((entry.startupStage*20)+(entry.teamSize*4)+
-//     (entry.experience*7))*1.031);
-//     resp.json(score);
-//     }
-//     catch(error){
-//         resp.json({"error":error.message});
-//     }
-// }
+//add feedback
+export const addFeedback=async(req,resp)=>{
+    try{
+    const entreId=req.params.emailid;
+    const entre=await Entre.findOne({emailid:entreId});
+    if(!entre)
+        resp.status(404).json("entre not found");
+    
+    const hasRated = entre.feedback.some(feedback => feedback.investorId === req.body.investorId);
+        if (hasRated) {
+            return resp.status(400).json({ error: 'Investor has already submitted feedback.' });
+        }
+
+    const newFeedback={
+        investorId:req.body.investorId,
+        rating:req.body.rating,
+    }
+    entre.feedback.push(newFeedback);
+    const totalRatings = entre.feedback.length;
+    const totalSum = entre.feedback.reduce((sum, feedback) => sum + feedback.rating, 0);
+    const averageRating = totalSum / totalRatings;
+    entre.averageRating=averageRating;
+    await entre.save();
+    resp.status(200).json({success:true,entre});
+}
+catch(error){
+    resp.status(500).json({"error":error.message});
+}
+}

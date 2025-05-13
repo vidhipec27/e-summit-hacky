@@ -203,7 +203,7 @@ const HomeInvestor = () => {
       }
 
       try {
-        const response = await getFromBackend(`${BASE_URL}/auth/details`);
+        const response = await getFromBackend(`${BASE_URL}/auth/detailsIn`);
         setUsername(response.data.username);
       } catch (err) {
         setError(err.response?.data?.message || "Failed to fetch user details.");

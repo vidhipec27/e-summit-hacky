@@ -19,8 +19,8 @@ export const searchEntreScore=async(req,resp)=>{
     try{
         const entre=await Entre.find();
         const scored=entre.map((entry)=>{
-            const score=entry.feedback?(((entry.startupStage*20)+(entry.teamSize*4)+
-    (entry.experience*7)+(entry.feedback*15))*0.581):(((entry.startupStage*20)+(entry.teamSize*4)+
+            const score=entry.averageRating?(((entry.startupStage*20)+(entry.teamSize*4)+
+    (entry.experience*7)+(entry.averageRating*15))*0.581):(((entry.startupStage*20)+(entry.teamSize*4)+
     (entry.experience*7))*1.031);
     return{
         username:entry.username,

@@ -101,3 +101,56 @@
         width: 90%;
     }
 }
+
+/* Rating container styling */
+.rating-container {
+    margin-top: 20px;
+}
+
+/* Styling for the rating stars */
+.rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.star {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Star filled styling */
+.star.filled {
+    color: #ffd700;
+}
+
+/* Styling for the Submit Rating button */
+.rating-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.rating-container button:hover {
+    background-color: #45a049;
+}
+
+/* Disable the rating section if already rated */
+.rating-container button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
+/* Styling for the "Be the first to rate them!" message
+.profile-value {
+    font-style: italic;
+    color: #888;
+} */

@@ -85,7 +85,7 @@ export const InvestorLogin=async(req,resp)=>{
 }
 
 //GET details
-export const details=async(req,resp)=>{
+export const detailsIn=async(req,resp)=>{
     try {
         const emailid=req.user.emailid;
         const currentUser=await Investor.findOne({emailid:emailid});

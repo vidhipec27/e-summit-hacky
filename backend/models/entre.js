@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import schemaRating from "./rating.js";
 const schema=new mongoose.Schema({
     username:{
         type:String,
@@ -34,9 +35,13 @@ const schema=new mongoose.Schema({
         required:true,
     },
     feedback:{
-        type:Number,
+        type:[schemaRating],
         required:false
     },
+    averageRating:{
+        type:Number,
+        defualt:0,
+    }
     },
     {timestamps:true}
 )
