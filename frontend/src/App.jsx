@@ -15,6 +15,7 @@ import EntrepreneurProfile from './components/ListEntre.jsx';
 // import ProfileInvestors from './components/ProfileInvestors.jsx';
 // import ProfileInvestors from './components/ProfileInvestor.jsx';
 import ProfileInvestors from './components/ProfileInvestor.jsx';
+import ProfileEntre from './components/ProfileEntre.jsx';
 
 function App() {
     const router = createBrowserRouter([
@@ -65,6 +66,10 @@ function App() {
       {
         path: "/profileIn/:emailid",
         element: <><ProfileInvestors /></>
+      },
+      {
+        path: "/profileE/:emailid",
+        element: <><ProfileEntre/></>
       },
     ])
     return <RouterProvider router={router} />;

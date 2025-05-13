@@ -81,7 +81,7 @@ export default function EntrepreneurProfile() {
                     </button>
                     <button
                       className="profile-button"
-                      onClick={() => navigate(`/profileEn/?email=${entrepreneur.emailid}`)}
+                      onClick={() => navigate(`/profileE/${entrepreneur.emailid}`)}
                     >
                       View Profile
                     </button>

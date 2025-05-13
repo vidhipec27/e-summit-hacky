@@ -47,3 +47,13 @@ export const searchEntre = async(req, resp) => {
         resp.status(500).send(error);
     }
 }
+export const getEntreDetails = async(req, resp) => {
+    try {
+        const email = req.params.emailid;
+        const result = await Entre.find({emailid: email});
+        resp.status(200).json({success:true,result});
+    } catch (error) {
+        console.log("error in searching entre", error);
+        resp.status(500).send(error);
+    }
+}
