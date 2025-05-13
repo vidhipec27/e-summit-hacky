@@ -21,6 +21,22 @@ const schema=new mongoose.Schema({
         type:Boolean,
         required:true,
     },
+    startupStage:{
+        type:Number,
+        required:true,
+    },
+    experience:{
+        type:Number,
+        required:true,
+    },
+    teamSize:{
+        type:Number,
+        required:true,
+    },
+    feedback:{
+        type:Number,
+        required:false
+    },
     },
     {timestamps:true}
 )

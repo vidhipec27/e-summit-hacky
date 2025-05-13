@@ -15,7 +15,10 @@ export const entreRegister=async (req,resp)=>{
             emailid,
             password,
             number,
-            needFunding}=req.body;
+            needFunding,
+            startupStage,
+            teamSize,
+            experience,}=req.body;
         if (!emailid || emailid.trim() === '') {
             return resp.status(400).json({ message: 'Email is required' });
         }
@@ -31,6 +34,9 @@ export const entreRegister=async (req,resp)=>{
             password:passwordF,
             number,
             needFunding,
+            startupStage,
+            teamSize,
+            experience,
         });
         const saveUser=await newEntre.save();
 
@@ -88,3 +94,16 @@ export const details=async(req,resp)=>{
         resp.status(500).message("there has been an error oopsie poopsie");
     }
 }
+
+// export const getEntreScore=async(req,resp)=>{
+//     try{
+//         const entry=await Entre.find();
+//         const score=entry.feedback?(((entry.startupStage*20)+(entry.teamSize*4)+
+//     (entry.experience*7)+(entry.feedback*15))*0.581):(((entry.startupStage*20)+(entry.teamSize*4)+
+//     (entry.experience*7))*1.031);
+//     resp.json(score);
+//     }
+//     catch(error){
+//         resp.json({"error":error.message});
+//     }
+// }

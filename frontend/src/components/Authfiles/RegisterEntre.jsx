@@ -232,7 +232,10 @@ const RegisterE = () => {
     emailid: "",
     password: "",
     number: "",
-    needFunding: false, // Default selection
+    needFunding: false,
+    startupStage:null,
+    teamSize: null,
+    experience:null, // Default selection
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -253,7 +256,9 @@ const RegisterE = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.password || !formData.number) {
+    if (!formData.username || !formData.emailid || !formData.password || !formData.number||formData.startupStage === null || 
+  formData.teamSize === null || 
+  formData.experience === null) {
       setError("All fields are required!");
       return;
     }
@@ -333,6 +338,111 @@ const RegisterE = () => {
             No
           </label>
         </div>
+        
+        <label>Startup Stage</label>
+        <div className="radio-group">
+          <label>
+            <input
+              type="radio"
+              name="startupStage"
+              value={0}
+              checked={formData.startupStage === 0}
+              onChange={(e) =>
+        setFormData({ ...formData, startupStage: parseInt(e.target.value) })
+      }
+            />
+            Idea
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="startupStage"
+              value={1}
+              checked={formData.startupStage === 1}
+              onChange={(e) =>
+        setFormData({ ...formData, startupStage: parseInt(e.target.value) })
+      }
+            />
+            MVP
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="startupStage"
+              value={2}
+              checked={formData.startupStage === 2}
+              onChange={(e) =>
+        setFormData({ ...formData, startupStage: parseInt(e.target.value) })
+      }
+            />
+            Launched
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="startupStage"
+              value={3}
+              checked={formData.startupStage === 3}
+              onChange={(e) =>
+        setFormData({ ...formData, startupStage: parseInt(e.target.value) })
+      }
+            />
+            Revenue Generating
+          </label>
+        </div>
+
+        <label>Team size-how many active members?</label>
+<div className="radio-group">
+  {[
+    { label: "<10", value: 0 },
+    { label: "10-25", value: 1 },
+    { label: "25-50", value: 2 },
+    { label: "50-100", value: 3 },
+    { label: "100+", value: 4},
+  ].map(({ label, value }) => (
+    <label key={value}>
+      <input
+        type="radio"
+        name="teamSize"
+        value={value}
+        checked={formData.teamSize === value}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            teamSize: parseInt(e.target.value),
+          })
+        }
+      />
+      {label}
+    </label>
+  ))}
+</div>
+
+<label>Experience (in  months)</label>
+<div className="radio-group">
+  {[
+    { label: "<3", value: 0 },
+    { label: "3-6", value: 1 },
+    { label: "6-12", value: 2 },
+    { label: "12+", value: 3 },
+  ].map(({ label, value }) => (
+    <label key={value}>
+      <input
+        type="radio"
+        name="experience"
+        value={value}
+        checked={formData.experience === value}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            experience: parseInt(e.target.value),
+          })
+        }
+      />
+      {label}
+    </label>
+  ))}
+</div>
 
         <button type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
 

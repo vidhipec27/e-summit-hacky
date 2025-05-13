@@ -58,7 +58,7 @@ export default function EntrepreneurProfile() {
         <table className="entrepreneur-table">
           <thead>
             <tr>
-              {["Name", "Email", "Phone", "Funding Needed", "Actions"].map((header) => (
+              {["Name", "Email", "Phone", "Funding Needed","Score", "Actions"].map((header) => (
                 <th key={header}>{header}</th>
               ))}
             </tr>
@@ -71,6 +71,7 @@ export default function EntrepreneurProfile() {
                   <td>{entrepreneur.emailid}</td>
                   <td>{entrepreneur.number}</td>
                   <td>{entrepreneur.needFunding ? "Yes" : "No"}</td>
+                  <td>{entrepreneur.score}</td>
                   <td>
                     <button
                       className="contact-button"
