@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MessageSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {
     conversationId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -8,11 +8,11 @@ const MessageSchema = new mongoose.Schema(
       required: true,
     },
     sender: {
-      type: String, // Sender email (extracted from JWT)
+      type: String, 
       required: true,
     },
     receiver: {
-      type: String, // Receiver email (sent from frontend)
+      type: String, 
       required: true,
     },
     text: {
@@ -23,5 +23,5 @@ const MessageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Message = mongoose.model("Message", MessageSchema);
+const Message = mongoose.model("messages", schema);
 export default Message;

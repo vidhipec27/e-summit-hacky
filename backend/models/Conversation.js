@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ConversationSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {
     members: {
       type: [String], // Array of user emails
@@ -10,5 +10,5 @@ const ConversationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Conversation = mongoose.model("Conversation", ConversationSchema);
+const Conversation = mongoose.model("conversations", schema);
 export default Conversation;

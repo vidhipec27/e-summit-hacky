@@ -3,11 +3,11 @@ import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "./chatbox.css";
-import { postToBackend } from "../../store/fetchdata";
+import { postToBackend, getFromBackend } from "../../store/fetchdata";
 import { BASE_URL } from "../../helper";
 const SOCKET_SERVER_URL = "http://localhost:5050";
 
-const ChatPage = () => {
+const ChatBox = () => {
   const { emailid } = useParams();
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -35,10 +35,17 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
+        if(userRole==="investor"){
         console.log("Fetching profile for:", emailid);
-        const response = await postToBackend(`${BASE_URL}/search/investor/details`, { emailid });
+        const response = await getFromBackend(`${BASE_URL}/search/entre/details/${ emailid }` );
         console.log("Profile response:", response);
-        setUserProfile(response.data.result[0]);
+        setUserProfile(response.data.result[0]);}
+        else{
+          console.log("Fetching profile for:", emailid);
+        const response = await postToBackend(`${BASE_URL}/search/investor/details`,{emailid}  );
+        console.log("Profile response:", response);
+        setUserProfile(response.data.result[0]);}
+        
       } catch (error) {
         console.error("Error fetching user profile:", error);
         setUserProfile({
@@ -92,21 +99,34 @@ const ChatPage = () => {
     };
   }, [userEmail, userRole]);
 
-  const sendMessage = () => {
+  const sendMessage =async () => {
     if (!emailid || !text.trim() || !socket || !userEmail || !userRole) {
       console.log("Missing required fields!");
       return;
     }
 
+    const convoPayload = {
+      receiverEmail: emailid,
+    };
+    const convoRes = await postToBackend(`${BASE_URL}/api/conversations/`, convoPayload);
+    const conversationId = convoRes.data._id;
+
     const messageData = {
-      senderId: userEmail,
-      senderRole: userRole,
+      senderId:userEmail,
+      convoId:conversationId,
+      receiverEmail: emailid,
+      message:text,
+    };
+    console.log(messageData);
+     const res = await postToBackend(`${BASE_URL}/api/messages`,messageData);
+     const dataforsocket={
+      senderId:userEmail,
+      senderRole:userRole,
       receiverId: emailid,
       text,
     };
-
-    socket.emit("sendMessage", messageData);
-    setMessages((prev) => [...prev, messageData]);
+    socket.emit("sendMessage",dataforsocket);
+    setMessages((prev) => [...prev, dataforsocket]);
     setText("");
   };
 
@@ -119,9 +139,11 @@ const ChatPage = () => {
       <h2>{loading ? "Loading chat..." : `Chat with ${userProfile?.username || "Guest"}`}</h2>
       <div className="chat-box">
         {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.senderId === userEmail ? "sent" : "received"}`}>
-            <span>{msg.text}</span>
-          </div>
+         <div key={index} className="message-wrapper">
+      <div className={`message ${msg.senderId === userEmail ? "sent" : "received"}`}>
+        <span>{msg.text}</span>
+      </div>
+    </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
@@ -139,4 +161,4 @@ const ChatPage = () => {
   );
 };
 
-export default ChatPage;
+export default ChatBox;

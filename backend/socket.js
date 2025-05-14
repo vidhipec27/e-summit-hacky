@@ -144,7 +144,7 @@ export const initializeSocket = (server) => {
       allowedHeaders: ["Authorization"],
       credentials: true,
     },
-    transports: ["websocket"], // ✅ Ensure WebSocket is used
+    // transports: ["websocket"], // ✅ Ensure WebSocket is used
   });
 
   io.on("connection", (socket) => {
