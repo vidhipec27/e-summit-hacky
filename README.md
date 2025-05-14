@@ -19,6 +19,7 @@
   - Pitch their ideas directly
   - Request meetings
   - View mentor/investor expertise and track records
+- Curated Ranking of the Top 20 Entrepreneurs Based on Investor Ratings and Market Signals.
 
 ### 🧠 AI-Powered Chatbot Assistant
 - Integrated intelligent chatbot for answering questions on:
