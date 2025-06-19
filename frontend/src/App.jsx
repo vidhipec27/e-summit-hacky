@@ -17,6 +17,8 @@ import EntrepreneurProfile from './components/ListEntre.jsx';
 import ProfileInvestors from './components/ProfileInvestor.jsx';
 import ProfileEntre from './components/ProfileEntre.jsx';
 import ChatPage from './components/ChatPages/ChatPage.jsx';
+import AboutUs from './components/AboutUs.jsx';
+import Contact from './components/Contact.jsx';
 
 function App() {
     const router = createBrowserRouter([
@@ -75,6 +77,14 @@ function App() {
       {
         path: "/chatpage",
         element: <><ChatPage/></>
+      },
+      {
+        path: "/about",
+        element: <><AboutUs/></>
+      },
+      {
+        path: "/contact",
+        element: <><Contact/></>
       },
     ])
     return <RouterProvider router={router} />;

@@ -1,0 +1,51 @@
+.aboutus-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#0B0C10, #2a0944, #0f171f);
+  padding: 2em 1em;
+}
+.aboutus-card {
+  background: rgba(31, 40, 51, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(30, 41, 59, 0.18);
+  max-width: 600px;
+  width: 100%;
+  padding: 2.5em 2em;
+  text-align: left;
+}
+.aboutus-card h1 {
+  font-size: 2.2em;
+  color: #66FCF1;
+  margin-bottom: 0.7em;
+  font-weight: 700;
+}
+.aboutus-card h2 {
+  font-size: 1.3em;
+  color: #6edcdc;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+.aboutus-mission {
+  font-size: 1.1em;
+  color: #fff;
+  margin-bottom: 1.2em;
+}
+.aboutus-list {
+  margin: 0 0 1.2em 1.2em;
+  color: #fff;
+  font-size: 1.05em;
+  line-height: 1.7;
+}
+.aboutus-card p {
+  color: #f3f3f3;
+  font-size: 1.05em;
+  margin-bottom: 0.7em;
+}
+@media (max-width: 600px) {
+  .aboutus-card {
+    padding: 1.2em 0.5em;
+  }
+} 
