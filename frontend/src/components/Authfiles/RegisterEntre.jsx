@@ -236,6 +236,7 @@ const RegisterE = () => {
     startupStage:null,
     teamSize: null,
     experience:null, // Default selection
+    videopath:null,
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -265,10 +266,27 @@ const RegisterE = () => {
 
     setLoading(true);
     setError("");
+    
+    const data = new FormData();
+    data.append("username", formData.username);
+    data.append("emailid", formData.emailid);
+    data.append("password", formData.password);
+    data.append("number", formData.number);
+    data.append("needFunding", formData.needFunding); // Boolean is OK
+    data.append("startupStage", formData.startupStage);
+    data.append("teamSize", formData.teamSize);
+    data.append("experience", formData.experience);
+
+    if (formData.videopath) {
+      data.append("videopath", formData.videopath); // This will send the video file
+    }
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/entre/register`, formData, {
-        headers: { "Content-Type": "application/json" },
+      // const response = await axios.post(`${BASE_URL}/auth/entre/register`, formData, {
+      //   headers: { "Content-Type": "application/json" },
+      // });
+      const response = await axios.post(`${BASE_URL}/auth/entre/register`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
       });
 
       console.log(response.data);
@@ -443,6 +461,16 @@ const RegisterE = () => {
     </label>
   ))}
 </div>
+
+<label>Upload your pitch video</label>
+<input
+  type="file"
+  name="videopath"
+  accept="video/*"
+  onChange={(e) =>
+    setFormData({ ...formData, videopath: e.target.files[0] })
+  }
+/>
 
         <button type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
 
