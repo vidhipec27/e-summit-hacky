@@ -27,7 +27,6 @@ const ProfileInvestors = () => {
                     domain: 'General',
                     experience: 0,
                     expertise: 'None',
-                    willFund: 0,
                 });
             } finally {
                 setLoading(false);
@@ -38,52 +37,62 @@ const ProfileInvestors = () => {
     }, [emailid]); // Corrected dependency array
 
     if (loading) {
-        return <p>Loading profile...</p>;
+        return (
+            <div className="profile-container loading">
+                <div className="loading-spinner"></div>
+            </div>
+        );
     }
 
     if (!userProfile) {
-        return <p>Profile not found.</p>;
+        return (
+            <div className="profile-container">
+                <div className="profile-card">
+                    <div className="profile-error">
+                        Profile not found. Please check the URL and try again.
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
         <div className="profile-container">
             <div className="profile-card">
+                {/* Profile Header */}
+                <div className="profile-header">
+                    <h1 className="profile-title">Investor Profile</h1>
+                    {/* <p className="profile-subtitle">Professional Information & Details</p> */}
+                </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">👤 Username:</label>
+                    <label className="profile-label">Username</label>
                     <p className="profile-value">{userProfile.username || 'Not available'}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">📧 Email:</label>
+                    <label className="profile-label">Email Address</label>
                     <p className="profile-value">{userProfile.emailid || 'Not available'}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">📞 Phone Number:</label>
+                    <label className="profile-label">Phone Number</label>
                     <p className="profile-value">{userProfile.number || 'Not available'}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">💼 Domain:</label>
+                    <label className="profile-label">Domain</label>
                     <p className="profile-value">{userProfile.domain || 'Not available'}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">📊 Experience:</label>
+                    <label className="profile-label">Experience</label>
                     <p className="profile-value">{userProfile.experience || 'Not available'} years</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">🛠 Expertise:</label>
+                    <label className="profile-label">Expertise</label>
                     <p className="profile-value">{userProfile.expertise || 'Not available'}</p>
-                </div>
-
-                <div className="profile-form-group">
-                    <label className="profile-label">💰 Willing to Fund:</label>
-                    <p className="profile-value">
-                        {userProfile.willFund === 1 ? 'Yes' : 'No'}
-                    </p>
                 </div>
             </div>
         </div>
