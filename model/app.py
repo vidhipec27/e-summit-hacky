@@ -1,15 +1,17 @@
-#finally working yay
+
 from flask import Flask, request, jsonify
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 from flask_cors import CORS
-
+from dotenv import load_dotenv
+import os
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Google Sheet CSV URL
-SHEET_URL = "https://docs.google.com/spreadsheets/d/1zeniVRb5M1o999FLSF21uWdr7GgMXbdBLHiRfoTknaA/export?format=csv"
+# SHEET_URL = "https://docs.google.com/spreadsheets/d/1zeniVRb5M1o999FLSF21uWdr7GgMXbdBLHiRfoTknaA/export?format=csv"
+SHEET_URL = os.getenv("Google_sheet_url")
 
 # Function to Load Google Sheets Data
 def load_google_sheet(url):
@@ -69,12 +71,12 @@ def find_matches():
         user_id = request_data.get("user_id")
 
         if not user_id:
-            return jsonify({"error": "⚠️ User ID is required"}), 400
+            return jsonify({"error": "User ID is required"}), 400
 
         # Load Google Sheet dynamically
         data = load_google_sheet(SHEET_URL)
         if data is None:
-            return jsonify({"error": "⚠️ Failed to load dataset"}), 500
+            return jsonify({"error": "Failed to load dataset"}), 500
 
         # Normalize Email column (strip spaces, lowercase)
         data['Email'] = data['Email'].astype(str).str.strip().str.lower()
@@ -84,7 +86,7 @@ def find_matches():
         print(f"📜 Normalized Emails in Dataset:\n{data['Email'].unique().tolist()}")
 
         if user_id not in data['Email'].values:
-            return jsonify({"error": f"⚠️ User ID '{user_id}' not found in the dataset"}), 404
+            return jsonify({"error": f"User ID '{user_id}' not found in the dataset"}), 404
 
         # Preprocess dataset
         data = preprocess(data)
@@ -130,12 +132,12 @@ def find_matches():
         user_recommendations = get_matches(data, weighted_df, label_encoders, user_id)
 
         if not user_recommendations:
-            return jsonify({"error": f"⚠️ No matches found for user {user_id}"}), 404
+            return jsonify({"error": f"No matches found for user {user_id}"}), 404
 
         return jsonify(user_recommendations)
 
     except Exception as e:
-        print(f"❌ Error in find_matches: {str(e)}")
+        print(f" Error in find_matches: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
