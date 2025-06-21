@@ -45,6 +45,9 @@ const schema=new mongoose.Schema({
     videopath:{
         type:String,
     },
+    transcript:{
+        type:String,
+    },
     },
     {timestamps:true}
 )

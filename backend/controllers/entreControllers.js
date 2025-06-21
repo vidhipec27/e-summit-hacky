@@ -19,7 +19,8 @@ export const entreRegister=async (req,resp)=>{
             startupStage,
             teamSize,
             experience,
-        videopath,}=req.body;
+        videopath,
+    transcript,}=req.body;
         if (!emailid || emailid.trim() === '') {
             return resp.status(400).json({ message: 'Email is required' });
         }
@@ -39,6 +40,7 @@ export const entreRegister=async (req,resp)=>{
             teamSize,
             experience,
             videopath,
+            transcript,
         });
         const saveUser=await newEntre.save();
 

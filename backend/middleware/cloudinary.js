@@ -1,9 +1,19 @@
 import multer from "multer";
 import fs from "fs";
 import cloudinary from "../config/cloudinary.js"; 
+import path from "path";
+
+const storage = multer.diskStorage({
+  destination: "uploaded/",
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname); 
+    const name = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
+    cb(null, name);
+  }
+});
 
 export const upload = multer({
-  dest: "uploaded",
+  storage,
   fileFilter: (req, file, cb) => {
     const allowedTypes = ["video/mp4", "video/avi", "video/mkv", "video/quicktime"];
     if (allowedTypes.includes(file.mimetype)) {
