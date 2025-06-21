@@ -7,7 +7,7 @@ dotenv.config();
 const key=process.env.JWT_SECRET;
 
 //REGISTER
-export const entreRegister=async (req,resp)=>{
+export const entreRegisterTemp =async (req,resp)=>{
     //console.log(req.body);
     try{
         const{
@@ -60,6 +60,87 @@ export const entreRegister=async (req,resp)=>{
         resp.status(500).json({"error":error.message});
     }
 };
+
+//REGISTER
+
+export const entreRegister =async (req,resp)=>{
+    //console.log(req.body);
+    try{
+        const{
+            username,
+            emailid,
+            password,
+            }=req.body;
+        if (!emailid || emailid.trim() === '') {
+            return resp.status(400).json({ message: 'Email is required' });
+        }
+        const existingUser = await Entre.findOne({ emailid });
+        if (existingUser) {
+        return resp.status(400).json({success: false, message: "Email already registered" });
+    }
+        const salt=await bcrypt.genSalt();
+        const passwordF=await bcrypt.hash(password, salt);
+        const newEntre=new Entre({
+            username,
+            emailid,
+            password:passwordF,
+        });
+        const saveUser=await newEntre.save();
+        const token=jwt.sign({emailid:emailid, role:"entre"},key);
+        resp.json({success: true,token});
+
+        
+    }
+    catch(error){
+        console.log("this is the error in registering, ", error);
+        resp.status(500).json({"error":error.message});
+    }
+};
+
+export const completeEntreRegister = async(req, resp) => {
+    try {
+        const{
+            number,
+            needFunding,
+            startupStage,
+            teamSize,
+            experience,
+        videopath,
+        transcript}=req.body;
+
+        const userid = req.user.emailid;
+        const user = await Entre.findOneAndUpdate({emailid: userid}, {
+            number, 
+            startupStage,
+            needFunding,
+            teamSize,
+            experience,
+            videopath,
+            transcript,
+            completeRegistration: true
+        });
+
+        resp.status(200).json({ message: "Registration completed successfully." });
+    } catch (error) {
+        console.log("this is the error in completing details for entre ", error);
+        resp.status(500).json({"error": error.message});
+    }
+}
+
+export const checkCompleteEntreRegister = async (req, resp) => {
+    try {
+        const userid = req.user.emailid;
+        const user = await Entre.findOne({emailid: userid});
+        
+        console.log(user);
+        // const check = user.completeRegistration;
+        // console.log(check);
+        return resp.status(200).json({registered: check});
+    } catch (error) {
+        console.log("there is an error in checking if entre has completely registered");
+        resp.status(500).json({"error": error.message});
+    }
+}
 
 //LOGIN
 export const entreLogin=async(req,resp)=>{

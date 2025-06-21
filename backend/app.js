@@ -34,29 +34,27 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { createServer } from "http"; // ✅ Correct ES module import
+import { createServer } from "http";
 import { connectDb } from "./db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
 import { initializeSocket } from "./socket.js";
 import { addFeedback } from "./controllers/entreControllers.js";
 
-dotenv.config(); // ✅ Load environment variables
+dotenv.config(); 
 
 const app = express();
-const server = createServer(app); // ✅ Create HTTP server
-initializeSocket(server); // ✅ Initialize WebSockets
+const server = createServer(app); 
+initializeSocket(server); 
 
 app.use(cors());
 app.use(express.json());
 
-// ✅ Import routes correctly
 import authRoutes from "./routes/authRoutes.js";
 import searchRoutes from "./routes/searchRoute.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import conversationRoutes from "./routes/conversationRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 
-// ✅ Define API routes
 app.use("/auth", authRoutes);
 app.use("/search", searchRoutes);
 app.use("/api", chatbotRoutes);
@@ -64,7 +62,6 @@ app.use("/api/conversations", verifyToken, conversationRoutes);
 app.use("/api/messages", verifyToken, messageRoutes);
 app.use("/addFeedback/:emailid",verifyToken, addFeedback);
 
-// ✅ Start server and connect database
 const PORT = process.env.PORT || 5050;
 server.listen(PORT, async () => {
   await connectDb();

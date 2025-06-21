@@ -16,23 +16,23 @@ const schema=new mongoose.Schema({
     },
     number:{
         type:String,
-        required:true,
+        required:false,
     },
     needFunding:{
         type:Boolean,
-        required:true,
+        required:false,
     },
     startupStage:{
         type:Number,
-        required:true,
+        required:false,
     },
     experience:{
         type:Number,
-        required:true,
+        required:false,
     },
     teamSize:{
         type:Number,
-        required:true,
+        required:false,
     },
     feedback:{
         type:[schemaRating],
@@ -48,6 +48,10 @@ const schema=new mongoose.Schema({
     transcript:{
         type:String,
     },
+    completeRegistration: {
+        type: Boolean,
+        default: false
+    }
     },
     {timestamps:true}
 )

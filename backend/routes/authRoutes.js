@@ -1,7 +1,7 @@
 import express from "express";
-import { entreLogin,entreRegister, details } from "../controllers/entreControllers.js";
+import { entreLogin,entreRegister, details, entreRegisterTemp, completeEntreRegister, checkCompleteEntreRegister } from "../controllers/entreControllers.js";
 import { verifyToken } from "../middleware/verifyToken.js";
-import { InvestorLogin, InvestorRegister, detailsIn } from "../controllers/investorController.js";
+import { InvestorLogin, InvestorRegisterTemp, detailsIn, investorRegister, completeInvestorRegister, checkCompleteInvestorRegister } from "../controllers/investorController.js";
 import { upload,cloudinaryFile } from "../middleware/cloudinary.js";
 import { videoDuration } from "../middleware/videoLength.js";
 import { audioTranscribe } from "../middleware/audioTranscribe.js";
@@ -9,9 +9,17 @@ import { audioTranscribe } from "../middleware/audioTranscribe.js";
 const router=express.Router();
 
 //entrepreneur routes
-router.post("/entre/register",upload, videoDuration,audioTranscribe, cloudinaryFile,entreRegister);
+router.post("/entre/register",upload, videoDuration,audioTranscribe, cloudinaryFile,entreRegisterTemp);
 router.post("/entre/login",entreLogin);
-router.post("/investor/register", InvestorRegister);
+router.post("/entre/register1", entreRegister);
+router.post("/entre/register2", verifyToken, completeEntreRegister);
+router.get("/entre/checkregistration", verifyToken, checkCompleteEntreRegister);
+
+router.post("/investor/register", InvestorRegisterTemp);
+router.post("/investor/register1", investorRegister);
+router.post("/investor/register2", verifyToken, completeInvestorRegister);
+router.get("/investor/checkregistration", verifyToken, checkCompleteInvestorRegister);
+
 router.post("/investor/login", InvestorLogin);
 router.get("/details", verifyToken, details);
 router.get("/detailsIn",verifyToken,detailsIn);

@@ -15,23 +15,26 @@ const schema=new mongoose.Schema({
     },
     number:{
         type:String,
-        required:true,
+        required:false,
     },
     willFund:{
         type:Boolean,
-        required:true,
+        required:false,
     },
     domain:{
         type:String,
-        required:true,
+        required:false,
     },
     experience:{
         type:String,
     },
     expertise:{
         type:String
+    },
+    completeRegistration: {
+        type: Boolean,
+        default: false
     }
-
     },
     {timestamps:true}
 )
