@@ -41,7 +41,10 @@ const schema=new mongoose.Schema({
     averageRating:{
         type:Number,
         defualt:0,
-    }
+    },
+    videopath:{
+        type:String,
+    },
     },
     {timestamps:true}
 )
