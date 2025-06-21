@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Google Sheet CSV URL
-# SHEET_URL = "https://docs.google.com/spreadsheets/d/1zeniVRb5M1o999FLSF21uWdr7GgMXbdBLHiRfoTknaA/export?format=csv"
+
 SHEET_URL = os.getenv("Google_sheet_url")
 
 # Function to Load Google Sheets Data
