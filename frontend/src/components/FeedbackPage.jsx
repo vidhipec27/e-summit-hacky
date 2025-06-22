@@ -35,17 +35,20 @@ const Feedback = () => {
     setLoading(true);
     setFeedback("");
 
-    try {
+     try {
       const res = await postToBackend(
         `${BASE_URL}/feedback/getFeedbackOnTranscript`,
         {
           messages: [
             {
               role: "user",
-              content: `Please give feedback on this startup pitch. Limit your response to 3 main points only, covering:
-            1. Key Strength
-            2. Major Weakness
-            3. One Actionable Suggestion:\n\n${entre[0].transcript}`
+              content: `Analyze the following startup pitch transcript and provide exactly 3 bullet points, at least 2 lines each:
+
+- Key Strength  
+- Major Weakness  
+- One Actionable Suggestion
+
+Avoid introductions or phrases like “as requested” or “here's your feedback”. Just provide the three points directly.:\n\n${entre[0].transcript}`
             }
           ]
         }
