@@ -19,6 +19,7 @@ import ProfileEntre from './components/ProfileEntre.jsx';
 import ChatPage from './components/ChatPages/ChatPage.jsx';
 import AboutUs from './components/AboutUs.jsx';
 import Contact from './components/Contact.jsx';
+import Feedback from "./components/FeedbackPage.jsx";
 
 function App() {
     const router = createBrowserRouter([
@@ -85,6 +86,10 @@ function App() {
       {
         path: "/contact",
         element: <><Contact/></>
+      },
+      {
+        path: "/feedback",
+        element: <><Feedback/></>
       },
     ])
     return <RouterProvider router={router} />;

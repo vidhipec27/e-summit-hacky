@@ -54,6 +54,7 @@ import searchRoutes from "./routes/searchRoute.js";
 import chatbotRoutes from "./routes/chatbotRoutes.js";
 import conversationRoutes from "./routes/conversationRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import aiFeedbackRoute from "./routes/aiFeedbackRoute.js"
 
 app.use("/auth", authRoutes);
 app.use("/search", searchRoutes);
@@ -61,6 +62,7 @@ app.use("/api", chatbotRoutes);
 app.use("/api/conversations", verifyToken, conversationRoutes);
 app.use("/api/messages", verifyToken, messageRoutes);
 app.use("/addFeedback/:emailid",verifyToken, addFeedback);
+app.use("/feedback",aiFeedbackRoute);
 
 const PORT = process.env.PORT || 5050;
 server.listen(PORT, async () => {
