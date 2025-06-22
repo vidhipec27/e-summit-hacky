@@ -38,7 +38,7 @@ function App() {
         element: <><EntreConnect /></>
       },
       {
-        path: "/login/mentor",
+        path: "/login/investor",
         element: <><LoginIn /></>
       },
       {
