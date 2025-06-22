@@ -84,34 +84,34 @@ const ProfileEntre = () => {
             <div className="profile-card">
 
                 <div className="profile-form-group">
-                    <label className="profile-label">👤 Username:</label>
+                    <label className="profile-label">Username:</label>
                     <p className="profile-value">{userProfile.username || 'Not available'}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">📧 Email:</label>
+                    <label className="profile-label">Email:</label>
                     <p className="profile-value">{userProfile.emailid || 'Not available'}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">📞 Phone Number:</label>
+                    <label className="profile-label">Phone Number:</label>
                     <p className="profile-value">{userProfile.number || 'Not available'}</p>
                 </div>
                 
                 <div className="profile-form-group">
-                    <label className="profile-label">💰 Need Funding?:</label>
+                    <label className="profile-label">Need Funding?:</label>
                     <p className="profile-value">
                         {userProfile.needFunding === 1 ? 'Yes' : 'No'}
                     </p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">📊 Startup Stage:</label>
+                    <label className="profile-label">Startup Stage:</label>
                     <p className="profile-value">{["Idea", "MVP", "Launched", "Revenue Generating"][userProfile.startupStage]}</p>
                 </div>
 
                 <div className="profile-form-group">
-                    <label className="profile-label">🛠 Team size:</label>
+                    <label className="profile-label">Team size:</label>
                     <p className="profile-value"> {["<10", "10-25", "25-50", "50-100", "100+"][userProfile.teamSize]}</p>
                 </div>
 
