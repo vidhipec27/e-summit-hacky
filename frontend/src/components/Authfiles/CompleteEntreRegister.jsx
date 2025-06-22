@@ -4,6 +4,7 @@ import "./Auth.css";
 import { BASE_URL } from "../../helper";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/storetoken";
+import { jwtDecode } from "jwt-decode";
 
 const CompleteEntreRegister = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const CompleteEntreRegister = () => {
     teamSize: "",
     experience: "",
     videopath: null,
+    transcript:null,
   });
 
   const [error, setError] = useState("");
@@ -63,17 +65,21 @@ const CompleteEntreRegister = () => {
     if (formData.videopath) {
       data.append("videopath", formData.videopath);
     }
-
+    //data.append("transcript",formData.transcript);
+    console.log("call ho raha hai? ",formData);
     try {
-      const token = getTokenFromLS();
+      console.log("?????");
+      const token=localStorage.getItem("token");
+      //const token=jwtDecode(jwtToken);
+      console.log("token ",token);
       const response = await axios.post(`${BASE_URL}/auth/entre/register2`, data, {
         headers: { 
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${token}`
         },
       });
-
-      console.log(response.data);
+      console.log("what response am i getting, ",response.data);
+      //console.log(response.data);
       if (response.status === 200) {
         setSuccess(true);
         setTimeout(() => {

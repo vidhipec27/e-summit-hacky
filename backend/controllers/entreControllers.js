@@ -104,11 +104,13 @@ export const completeEntreRegister = async(req, resp) => {
             needFunding,
             startupStage,
             teamSize,
-            experience,
-        videopath,
-        transcript}=req.body;
+            experience,}=req.body;
 
         const userid = req.user.emailid;
+
+        const videopath=req.videopath;
+        const transcript=req.transcript;
+        
         const user = await Entre.findOneAndUpdate({emailid: userid}, {
             number, 
             startupStage,
@@ -133,11 +135,12 @@ export const checkCompleteEntreRegister = async (req, resp) => {
         const user = await Entre.findOne({emailid: userid});
         
         console.log(user);
-        // const check = user.completeRegistration;
+        const check = user.completeRegistration;
         // console.log(check);
         return resp.status(200).json({registered: check});
     } catch (error) {
         console.log("there is an error in checking if entre has completely registered");
+        console.log(error.message);
         resp.status(500).json({"error": error.message});
     }
 }

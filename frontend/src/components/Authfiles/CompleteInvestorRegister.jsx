@@ -26,7 +26,6 @@ const CompleteInvestorRegister = () => {
   };
 
   const navigate = useNavigate();
-  const { getTokenFromLS } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +39,7 @@ const CompleteInvestorRegister = () => {
     setError("");
 
     try {
-      const token = getTokenFromLS();
+      const token = localStorage.getItem("token");
       const response = await axios.post(`${BASE_URL}/auth/investor/register2`, formData, {
         headers: { 
           "Content-Type": "application/json",

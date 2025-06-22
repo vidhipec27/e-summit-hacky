@@ -12,7 +12,7 @@ const router=express.Router();
 router.post("/entre/register",upload, videoDuration,audioTranscribe, cloudinaryFile,entreRegisterTemp);
 router.post("/entre/login",entreLogin);
 router.post("/entre/register1", entreRegister);
-router.post("/entre/register2", verifyToken, completeEntreRegister);
+router.post("/entre/register2", verifyToken, upload, videoDuration,audioTranscribe, cloudinaryFile,completeEntreRegister);
 router.get("/entre/checkregistration", verifyToken, checkCompleteEntreRegister);
 
 router.post("/investor/register", InvestorRegisterTemp);
