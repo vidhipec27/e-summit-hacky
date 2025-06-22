@@ -77,15 +77,17 @@ const HomeInvestor = () => {
         )}
       </div>
 
-      {/* Single Offer Card */}
+      {/* Offers Section */}
       <div className="offers-section">
         <h2 className="offers-title">WHAT WE OFFER?</h2>
-        <div className="offer-card">
-          <h3>Look for Eligible Entrepreneurs</h3>
-          <p>Invest your funds in promising startups and grow your portfolio.</p>
-          <button className="offer-btn" onClick={handleExploreEntrepreneurs}>
-            Explore Now
-          </button>
+        <div className="offers-container">
+          <div className="offer-card">
+            <h3>Look for Eligible Entrepreneurs</h3>
+            <p>Invest your funds in promising startups and grow your portfolio.</p>
+            <button className="offer-btn" onClick={handleExploreEntrepreneurs}>
+              Explore Now
+            </button>
+          </div>
         </div>
       </div>
 

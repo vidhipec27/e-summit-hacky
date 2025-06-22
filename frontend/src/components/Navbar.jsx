@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
@@ -15,7 +14,6 @@ const Navbar = ({ handleLogout }) => {
         <button onClick={() => navigate("/about")}>About Us</button>
         <button onClick={() => navigate("/contact")}>Contact</button>
         <button onClick={() => navigate("/chatpage")}>Chats</button>
-        <button onClick={() => navigate("/feedback")}>Improve Pitch</button>
       </div>
 
       <button className="logout-btn" onClick={handleLogout}>Logout</button>

@@ -69,6 +69,10 @@ const HomeEntre = () => {
     handleFeatureAccess("/entrepreneur/ListOfInvestors");
   };
 
+  const handleImprovePitch = () => {
+    handleFeatureAccess("/feedback");
+  };
+
   return (
     <div className="home-container">
       <Navbar handleLogout={handleLogout} />
@@ -109,6 +113,11 @@ const HomeEntre = () => {
             <h3>Connect to Investors</h3>
             <p>Find potential investors and gain insights to support your startup and bring your business vision to life.</p>
             <button className="offer-btn" onClick={handleGetFunding}>Get Funding</button>
+          </div>
+          <div className="offer-card">
+            <h3>Improve Your Pitch</h3>
+            <p>Get AI-powered feedback on your pitch deck and presentation to make it more compelling and investor-ready.</p>
+            <button className="offer-btn" onClick={handleImprovePitch}>Improve Pitch</button>
           </div>
         </div>
       </div>
