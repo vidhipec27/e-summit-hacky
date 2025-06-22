@@ -1,75 +1,346 @@
+/* Feedback Page Styles - Modern Dark Theme */
 .feedback-container {
-  padding: 2rem;
-  max-width: 700px;
-  margin: 2rem auto;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #16213e 100%);
+  padding: 2rem 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Animated Background */
+.feedback-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.08) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-10px) translateY(-10px); }
+  50% { transform: translateX(10px) translateY(-5px); }
+  75% { transform: translateX(-5px) translateY(10px); }
+}
+
+/* Main Content */
+.feedback-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.feedback-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title Styling */
 .feedback-title {
   text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #222;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  background: linear-gradient(135deg, #00d4ff 0%, #00b8d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+  animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
+@keyframes titleGlow {
+  from { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3)); }
+  to { filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.6)); }
+}
+
+/* Transcript Box */
 .transcript-box {
-  background: #f5f5f5;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  border-left: 4px solid #4caf50;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.transcript-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #00b8d4, #00d4ff);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.transcript-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.4);
 }
 
 .transcript-box h4 {
-  margin: 0 0 0.5rem;
-  color: #333;
+  margin: 0 0 1rem 0;
+  color: #00d4ff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.transcript-box h4::before {
+  content: ' ';
+  font-size: 1.2rem;
 }
 
 .transcript-box p {
   margin: 0;
-  color: #444;
+  color: #e0e6ed;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.7;
+  text-align: justify;
+  opacity: 0.9;
+}
+
+/* Button Styling */
+.feedback-button-container {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .feedback-button {
-  background-color: #4caf50;
-  color: white;
+  background: linear-gradient(135deg, #00d4ff 0%, #00b8d4 100%);
+  color: #0f1419;
   border: none;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 8px;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+  min-width: 200px;
+}
+
+.feedback-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.feedback-button:hover::before {
+  left: 100%;
 }
 
 .feedback-button:hover {
-  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0, 212, 255, 0.4);
+  background: linear-gradient(135deg, #00b8d4 0%, #00d4ff 100%);
+}
+
+.feedback-button:active {
+  transform: translateY(0);
 }
 
 .feedback-button:disabled {
-  background-color: #a5d6a7;
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  color: #a0aec0;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+.feedback-button:disabled::before {
+  display: none;
+}
+
+/* Loading Animation */
+.feedback-button:disabled::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid #a0aec0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Feedback Result */
 .feedback-result {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 16px;
+  padding: 2rem;
   margin-top: 2rem;
-  background: #e3f2fd;
-  padding: 1.5rem;
-  border-radius: 12px;
-  border-left: 4px solid #2196f3;
-  white-space: pre-wrap;
-  color: #333;
-  font-size: 0.95rem;
+  position: relative;
+  overflow: hidden;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.feedback-result::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #00b8d4);
 }
 
 .feedback-result h3 {
-  margin-top: 0;
-  color: #0d47a1;
-  font-size: 1.25rem; 
+  margin: 0 0 1rem 0;
+  color: #00d4ff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feedback-result h3::before {
+  content: ' ';
+  font-size: 1.3rem;
+}
+
+.feedback-result p {
+  color: #e0e6ed;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+  white-space: pre-wrap;
+  text-align: justify;
+}
+
+/* Loading State */
+.loading-message {
+  text-align: center;
+  color: #a0aec0;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .feedback-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .feedback-content {
+    padding: 2rem 1.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .feedback-title {
+    font-size: 2rem;
+  }
+  
+  .transcript-box,
+  .feedback-result {
+    padding: 1.5rem;
+  }
+  
+  .feedback-button {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .feedback-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .feedback-title {
+    font-size: 1.8rem;
+  }
+  
+  .transcript-box,
+  .feedback-result {
+    padding: 1rem;
+  }
+  
+  .feedback-button {
+    padding: 0.8rem 1.5rem;
+    min-width: 160px;
+  }
+}
+
+/* Scrollbar Styling */
+.feedback-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feedback-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.feedback-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00d4ff, #00b8d4);
+  border-radius: 4px;
+}
+
+.feedback-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00b8d4, #00d4ff);
 }

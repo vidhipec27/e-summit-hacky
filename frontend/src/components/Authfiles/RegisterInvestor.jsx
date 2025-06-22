@@ -11,10 +11,6 @@ const RegisterIn = () => {
     username: "",
     emailid: "",
     password: "",
-    number: "",
-    domain: "",
-    experience: "",
-    expertise: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +31,7 @@ const RegisterIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.emailid || !formData.number || !formData.password || !formData.domain || !formData.experience || !formData.expertise) {
+    if (!formData.username || !formData.emailid || !formData.password) {
       setError("All fields are required!");
       return;
     }
@@ -44,7 +40,7 @@ const RegisterIn = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/investor/register`, formData, {
+      const response = await axios.post(`${BASE_URL}/auth/investor/register1`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -65,7 +61,7 @@ const RegisterIn = () => {
   return (
     <div className="auth-container">
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Register</h2>
+        <h2>Register as Investor</h2>
 
         {error && <p className="error-message">{error}</p>}
 
@@ -89,30 +85,12 @@ const RegisterIn = () => {
           </span>
         </div>
 
-        <label>Domain</label>
-        <select name="domain" value={formData.domain} onChange={handleChange}>
-          <option value="">Select Domain</option>
-          <option value="Manufacturing & Production">Manufacturing & Production</option>
-          <option value="Retail & E-commerce">Retail & E-commerce</option>
-          <option value="Service-Based Industry">Service-Based Industry</option>
-          <option value="Technology & IT">Technology & IT</option>
-          <option value="Social & Environmental Entrepreneurship">Social & Environmental Entrepreneurship</option>
-          <option value="Financial & Investment Services">Financial & Investment Services</option>
-        </select>
+        <button type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </button>
 
-        <label>Phone Number</label>
-        <input type="tel" name="number" placeholder="Enter your phone number" value={formData.number} onChange={handleChange} />
-
-        <label>Experience (in years)</label>
-        <input type="number" name="experience" placeholder="Enter experience in years" value={formData.experience} onChange={handleChange} />
-
-        <label>Expertise Field</label>
-        <input type="text" name="expertise" placeholder="Enter your expertise field" value={formData.expertise} onChange={handleChange} />
-
-        <button type="submit" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
-
-        <p className="redirect-text">
-          Already have an account? <span onClick={() => navigate("/login/mentor")}>Login</span>
+        <p className="auth-link">
+          Already have an account? <span onClick={() => navigate("/login/investor")}>Sign In</span>
         </p>
       </form>
     </div>

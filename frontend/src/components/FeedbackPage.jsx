@@ -62,34 +62,36 @@ const Feedback = () => {
     }
   };
 
-  if (!entre) return <p>Loading entrepreneur...</p>;
+  if (!entre) return <div className="feedback-container"><div className="loading-message">Loading entrepreneur...</div></div>;
 
   return (
-  <div className="feedback-container">
-    <h2 className="feedback-title">Pitch Feedback</h2>
+    <div className="feedback-container">
+      <div className="feedback-content">
+        <h2 className="feedback-title">Pitch Feedback</h2>
 
-    <div className="transcript-box">
-      <h4>Transcript:</h4>
-      <p>{entre[0].transcript}</p>
-    </div>
+        <div className="transcript-box">
+          <h4>Transcript:</h4>
+          <p>{entre[0].transcript}</p>
+        </div>
 
-    <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-      <button
-        onClick={Feedback}
-        disabled={loading || !entre?.[0]?.transcript}
-        className="feedback-button"
-      >
-        {loading ? "Getting Feedback..." : "Submit for Feedback"}
-      </button>
-    </div>
+        <div className="feedback-button-container">
+          <button
+            onClick={Feedback}
+            disabled={loading || !entre?.[0]?.transcript}
+            className="feedback-button"
+          >
+            {loading ? "Getting Feedback..." : "Submit for Feedback"}
+          </button>
+        </div>
 
-    {feedback && (
-      <div className="feedback-result">
-        <h3>AI Feedback:</h3>
-        <p>{feedback.replace(/\*\*/g, '').replace(/\*/g, '')}</p>
+        {feedback && (
+          <div className="feedback-result">
+            <h3>AI Feedback:</h3>
+            <p>{feedback.replace(/\*\*/g, '').replace(/\*/g, '')}</p>
+          </div>
+        )}
       </div>
-    )}
-  </div>
-);
+    </div>
+  );
 }
 export default Feedback;

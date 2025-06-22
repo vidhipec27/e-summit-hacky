@@ -6,6 +6,8 @@ import LoginIn from './components/Authfiles/LoginIn.jsx';
 import RegisterE from './components/Authfiles/RegisterEntre.jsx';
 import RegisterIn from './components/Authfiles/RegisterInvestor.jsx';
 import RegisterSelection from './components/Authfiles/RegisterSelection.jsx';
+import CompleteEntreRegister from './components/Authfiles/CompleteEntreRegister.jsx';
+import CompleteInvestorRegister from './components/Authfiles/CompleteInvestorRegister.jsx';
 import HomeEntre from './components/HomeEntre.jsx';
 import HomeInvestor from './components/HomeInvestor.jsx';
 import EntreConnect from './components/EntreConnect.jsx';
@@ -46,6 +48,14 @@ function App() {
       {
         path: "/register/mentor",
         element: <><RegisterIn /></>
+      },
+      {
+        path: "/complete-registration/entrepreneur",
+        element: <><CompleteEntreRegister /></>
+      },
+      {
+        path: "/complete-registration/investor",
+        element: <><CompleteInvestorRegister /></>
       },
       {
         path: "/Home/entrepreneur",
