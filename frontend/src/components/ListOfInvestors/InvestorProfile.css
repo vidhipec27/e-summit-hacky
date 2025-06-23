@@ -2,7 +2,7 @@
 .investor-container {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient( #0B0C10,#2a0944, #0f171f) !important;
+    background: radial-gradient(circle at center, #0a3d62 0%, #062f4f 40%, #021931 70%, #010d15 100%) !important;
     display: flex;
     flex-direction: column;
     align-items: center;
