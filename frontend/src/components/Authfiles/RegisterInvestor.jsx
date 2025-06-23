@@ -89,7 +89,7 @@ const RegisterIn = () => {
           {loading ? "Registering..." : "Register"}
         </button>
 
-        <p className="auth-link">
+        <p className="redirect-text">
           Already have an account? <span onClick={() => navigate("/login/investor")}>Sign In</span>
         </p>
       </form>

@@ -41,7 +41,7 @@
 .messenger {
   height: 100vh;
   display: flex;
-  background: linear-gradient(135deg, #0B0C10 0%, #1a1a2e 50%, #16213e 100%);
+  background:radial-gradient(circle at center, #0a3d62 0%, #062f4f 40%, #021931 70%, #010d15 100%) !important;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #eaeaea;
   position: relative;

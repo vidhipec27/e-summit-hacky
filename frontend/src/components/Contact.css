@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(#0B0C10, #2a0944, #0f171f);
+  background: radial-gradient(circle at center, #0a3d62 0%, #062f4f 40%, #021931 70%, #010d15 100%) !important;
   padding: 2em 1em;
 }
 .contact-card {
@@ -41,7 +41,7 @@
   padding: 0.8em 1em;
   border-radius: 8px;
   border: 1.5px solid #232946;
-  background: #232946;
+  background: #021931;
   color: #fff;
   font-size: 1em;
   resize: none;
