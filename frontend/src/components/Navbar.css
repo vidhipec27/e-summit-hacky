@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background: rgba(47, 68, 84, 0.85); /* Glass effect */
+  background: rgba(7, 9, 12, 0.96); /* Glass effect */
   backdrop-filter: blur(10px);
   color: white;
   font-size: 18px;
@@ -22,7 +22,7 @@
 .logo {
   font-size: 26px;
   font-weight: bold;
-  background: linear-gradient(135deg, #7bd8da, #38cfc3);
+  background: #66FCF1;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
