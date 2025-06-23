@@ -20,8 +20,8 @@ const EntreConnect = () => {
     if (!name.trim()) {
       Swal.fire({
         icon: 'warning',
-        title: 'Missing Name',
-        text: 'Please enter your name!',
+        title: 'Missing Email',
+        text: 'Please enter your Email!',
       });
       return;
     }
@@ -62,13 +62,13 @@ const EntreConnect = () => {
         <h1>EntreConnect</h1>
         <p>Find like-minded entrepreneurs and connect with them!</p>
         <button className="cta-btn" onClick={openGoogleForm}>
-          Fill Out Entrepreneur Form
+          Fill Out The Entrepreneur Form And Get Started
         </button>
       </header>
       <div className="entreconnect-input-section">
         <input
           type="text"
-          placeholder="Enter your name"
+          placeholder="Enter your Email"
           value={name}
           onChange={handleNameChange}
           disabled={loading}
