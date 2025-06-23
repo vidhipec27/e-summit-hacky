@@ -21,7 +21,7 @@ const offers = [
     img: peerEntrepreneursImg,
     alt: "Connect to Peer Entrepreneurs",
     title: "Connect to Peer Entrepreneurs",
-    text: "Network with ambitious entrepreneurs, share ideas, and grow together in a thriving business community.",
+    text: "Network with ambitious entrepreneurs, share ideas, and grow together in a thriving business community. Based on your interests, goals, and industry, our ML algorithm matches you with entrepreneurs who share your vision. Start meaningful conversations, share insights, and grow together.",
     btn: "Connect",
     onClick: "handleConnectToPeers"
   },
@@ -29,7 +29,7 @@ const offers = [
     img: investorsImg,
     alt: "Connect to Investors",
     title: "Connect to Investors",
-    text: "Find potential investors and gain insights to support your startup and bring your business vision to life.",
+    text: "Find potential investors and gain expert insights to fuel your startup journey. Whether you're in the early ideation phase or scaling your operations, connect with the right backers who believe in your mission. Receive valuable feedback, explore funding opportunities, and turn your business vision into a thriving reality.",
     btn: "Get Funding",
     onClick: "handleGetFunding"
   },
@@ -37,7 +37,7 @@ const offers = [
     img: pitchFeedbackImg,
     alt: "Improve Your Pitch",
     title: "Improve Your Pitch",
-    text: "Get AI-powered feedback on your pitch deck and presentation to make it more compelling and investor-ready.",
+    text: "Supercharge your pitch with AI-powered feedback. Get instant, intelligent insights to refine your pitch deck and presentation—from structure and clarity to visual appeal and messaging. Make your startup story more compelling, boost investor confidence, and stand out in a competitive landscape.",
     btn: "Improve Pitch",
     onClick: "handleImprovePitch"
   }
@@ -171,8 +171,9 @@ const HomeEntre = () => {
                 <img className="offer-img" src={offer.img} alt={offer.alt} />
               </div>
               <div className="offer-card big-offer-card big-side-block" ref={cardRefs[i]}>
-                <h3>{offer.title}</h3>
-                <p>{offer.text}</p>
+                {/* <h3>{offer.title}</h3> */}
+                <h3 style={{ fontSize: "2rem", fontWeight: "bold" }}>{offer.title}</h3>
+                <p style={{ fontSize: "1.1rem" }}>{offer.text}</p>
                 <button
                   className="offer-btn"
                   onClick={

@@ -41,7 +41,7 @@
 }
 
 .offers-title {
-  font-size: 2.5rem;
+  font-size: 2.5rem !important; 
   font-weight: bold;
   color: #66FCF1 !important;
   margin-bottom: 40px;
@@ -54,7 +54,7 @@
   align-items: center;
   width: 100vw;
   max-width: 100vw;
-  gap: 110px;
+  gap: 100px;
 }
 
 .offer-row {
@@ -113,6 +113,7 @@
 /* Card styling - match new broader width */
 .big-offer-card {
   background: rgba(31, 40, 51, 0.96);
+  
   backdrop-filter: blur(14px);
   border-radius: 30px;
   padding: 48px 36px 36px 36px;
@@ -147,7 +148,7 @@
 
 .offer-btn {
   padding: 16px 48px;
-  font-size: 1.15rem;
+  font-size: 1.25rem !important;
   background: #66FCF1 !important;
   color: #0B0C10;
   border: none;
