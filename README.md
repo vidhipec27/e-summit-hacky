@@ -13,6 +13,14 @@
   - Preferred business models
   - Shared goals & skills
 
+### 🎤 Perfect Your Pitch
+- AI analyzes your pitch content to give clear, structured feedback for improving clarity, structure, and impact.
+- Users can:
+  - Upload a short pitch video (not more than 2 minutes)
+  - Receive automatic transcription
+  - Get detailed, structured AI-generated feedback
+  - Identify strengths, gaps, and areas to improve
+
 ### 📈 Investor & Mentor Connect Portal
 - Curated directory of verified investors and mentors.
 - Users can:
