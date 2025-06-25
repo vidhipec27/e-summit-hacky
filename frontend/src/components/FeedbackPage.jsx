@@ -51,7 +51,7 @@ const Feedback = () => {
 - Major Weakness  
 - One Actionable Suggestion
 
-Avoid introductions or phrases like “as requested” or “here's your feedback”. Just provide the three points directly.:\n\n${entre[0].transcript}`
+Avoid introductions or phrases like "as requested" or "here's your feedback". Just provide the three points directly.:\n\n${entre[0].transcript}`
             }
           ]
         }
@@ -75,16 +75,15 @@ Avoid introductions or phrases like “as requested” or “here's your feedbac
     <div className="feedback-content">
       <h2 className="feedback-title">Pitch Feedback</h2>
 
-      {/* ✅ Transcript Toggle */}
-      <div style={{ marginBottom: "1rem" }}>
-        <label>
-          <input
-            type="checkbox"
-            checked={showTranscript}
-            onChange={() => setShowTranscript(!showTranscript)}
-          />
-          &nbsp;Show Transcript
-        </label>
+      {/* ✅ Transcript Toggle as Button */}
+      <div className="feedback-button-container" style={{ marginBottom: '1.5rem' }}>
+        <button
+          className="feedback-button"
+          type="button"
+          onClick={() => setShowTranscript(!showTranscript)}
+        >
+          {showTranscript ? 'Hide Transcript' : 'Show Transcript'}
+        </button>
       </div>
 
       {/* ✅ Conditionally show transcript */}
