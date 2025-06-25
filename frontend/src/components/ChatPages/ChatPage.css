@@ -1,48 +1,9 @@
-/* .messenger {
-  display: flex;
-  height: 90vh;
-}
-
-.chatMenu {
-  flex: 2;
-  border-right: 1px solid gray;
-  overflow-y: auto;
-}
-
-.chatBox {
-  flex: 5;
-  display: flex;
-  flex-direction: column;
-}
-
-.chatBoxTop {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.chatBoxBottom {
-  display: flex;
-  padding: 10px;
-  gap: 10px;
-}
-
-.chatMessageInput {
-  flex: 1;
-  resize: none;
-  padding: 10px;
-}
-
-.chatSubmitButton {
-  padding: 10px 20px;
-} */
-/* Main layout */
-/* Main layout */
 .messenger {
-  height: 100vh;
+  margin-top: 70px;
+  height: calc(100vh - 70px); /* Fixed: subtract navbar height from viewport height */
   display: flex;
-  background:radial-gradient(circle at center, #0a3d62 0%, #062f4f 40%, #021931 70%, #010d15 100%) !important;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at center, #0a3d62 0%, #062f4f 40%, #021931 70%, #010d15 100%) !important;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #eaeaea;
   position: relative;
   overflow: hidden;
@@ -50,14 +11,13 @@
 
 /* Animated background elements */
 .messenger::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(102, 252, 241, 0.1) 0%, transparent 50%),
+  background: radial-gradient(circle at 20% 80%, rgba(102, 252, 241, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(102, 252, 241, 0.05) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
@@ -81,26 +41,28 @@
   flex-direction: column;
   height: 100%;
   padding: 20px 0;
+  overflow-y: auto; /* Added: Enable scrolling for conversation list */
 }
 
 .chatMenu h3 {
   margin: 0 20px 20px 20px;
   font-size: 24px;
   font-weight: 600;
-  color: #66FCF1;
+  color: #66fcf1;
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
+  flex-shrink: 0; /* Added: Prevent header from shrinking */
 }
 
 .chatMenu h3::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px;
   left: 0;
   width: 40px;
   height: 2px;
-  background: #66FCF1;
+  background: #66fcf1;
 }
 
 /* Chat box */
@@ -110,6 +72,7 @@
   flex-direction: column;
   position: relative;
   z-index: 1;
+  min-width: 0; /* Added: Prevent flex item from overflowing */
 }
 
 .chatBoxWrapper {
@@ -128,6 +91,7 @@
   padding: 20px;
   margin: -20px;
   margin-bottom: 0;
+  min-height: 0; /* Added: Allow flex item to shrink below content size */
 }
 
 /* Custom scrollbar */
@@ -149,6 +113,25 @@
   background: rgba(102, 252, 241, 0.5);
 }
 
+/* Custom scrollbar for conversation list */
+.chatMenuWrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatMenuWrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.chatMenuWrapper::-webkit-scrollbar-thumb {
+  background: rgba(102, 252, 241, 0.3);
+  border-radius: 3px;
+}
+
+.chatMenuWrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 252, 241, 0.5);
+}
+
 /* Message input area */
 .chatBoxBottom {
   display: flex;
@@ -158,6 +141,7 @@
   border-top: 1px solid rgba(102, 252, 241, 0.2);
   border-radius: 16px 16px 0 0;
   margin: 0 -20px -20px -20px;
+  flex-shrink: 0; /* Added: Prevent input area from shrinking */
 }
 
 .chatMessageInput {
@@ -187,8 +171,8 @@
 
 .chatSubmitButton {
   padding: 12px 24px;
-  background: #66FCF1;
-  color: #0B0C10;
+  background: #66fcf1;
+  color: #0b0c10;
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -201,7 +185,7 @@
 }
 
 .chatSubmitButton:hover {
-  background: #45B7AF;
+  background: #45b7af;
   transform: none;
 }
 
@@ -234,7 +218,7 @@
   max-width: 70%;
   padding: 12px 16px;
   border-radius: 12px;
-  background: #2F3136; /* Professional, neutral dark grey */
+  background: #2f3136; /* Professional, neutral dark grey */
   border: none;
   align-self: flex-start;
   word-wrap: break-word;
@@ -244,8 +228,8 @@
 }
 
 .message.own {
-  background: #5865F2; /* A distinct, professional blue */
-  color: #FFFFFF; /* Crisp white text */
+  background: #5865f2; /* A distinct, professional blue */
+  color: #ffffff; /* Crisp white text */
   align-self: flex-end;
   border: none;
 }
@@ -306,8 +290,8 @@
 
 .conversation.active {
   background: rgba(102, 252, 241, 0.1);
-  border-color: #66FCF1;
-  color: #66FCF1;
+  border-color: #66fcf1;
+  color: #66fcf1;
 }
 
 .conversation p {
@@ -322,19 +306,21 @@
 @media (max-width: 768px) {
   .messenger {
     flex-direction: column;
+    margin-top: 60px; /* Smaller margin for mobile */
+    height: calc(100vh - 60px); /* Adjust for mobile navbar height */
   }
-  
+
   .chatMenu {
     width: 100%;
     height: 200px;
     border-right: none;
     border-bottom: 1px solid rgba(102, 252, 241, 0.2);
   }
-  
+
   .chatBox {
     flex: 1;
   }
-  
+
   .message {
     max-width: 85%;
   }
@@ -350,17 +336,21 @@
 }
 
 .loading::after {
-  content: '';
+  content: "";
   width: 20px;
   height: 20px;
   border: 2px solid rgba(102, 252, 241, 0.3);
-  border-top: 2px solid #66FCF1;
-  border-radius: 50%;
+  border-top: 2px solid #66fcf1;
+  border-radius: 3px;
   animation: spin 1s linear infinite;
   margin-left: 10px;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

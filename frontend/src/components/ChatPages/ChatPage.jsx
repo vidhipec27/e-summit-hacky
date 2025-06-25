@@ -217,12 +217,18 @@ const ChatPage = () => {
                 ))}
               </div>
               <div className="chatBoxBottom">
-                <textarea
-                  className="chatMessageInput"
-                  placeholder="Write a message..."
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  value={newMessage}
-                />
+              <textarea
+                className="chatMessageInput"
+                placeholder="Write a message..."
+                onChange={(e) => setNewMessage(e.target.value)}
+                value={newMessage}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault()
+                    handleSendMessage()
+                  }
+                }}
+              />
                 <button className="chatSubmitButton" onClick={handleSendMessage}>
                   Send
                 </button>
