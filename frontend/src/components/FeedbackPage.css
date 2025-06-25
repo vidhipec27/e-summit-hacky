@@ -311,3 +311,15 @@
 .feedback-container::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #00b8d4, #00d4ff);
 }
+
+.video-box {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.video-box video {
+  max-width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}

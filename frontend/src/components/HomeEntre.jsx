@@ -35,10 +35,10 @@ const offers = [
   },
   {
     img: pitchFeedbackImg,
-    alt: "Improve Your Pitch",
-    title: "Improve Your Pitch",
+    alt: "Perfect Your Pitch",
+    title: "Perfect Your Pitch",
     text: "Supercharge your pitch with AI-powered feedback. Get instant, intelligent insights to refine your pitch deck and presentation—from structure and clarity to visual appeal and messaging. Make your startup story more compelling, boost investor confidence, and stand out in a competitive landscape.",
-    btn: "Improve Pitch",
+    btn: "Perfect Pitch",
     onClick: "handleImprovePitch"
   }
 ];
