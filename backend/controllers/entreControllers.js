@@ -108,8 +108,9 @@ export const completeEntreRegister = async(req, resp) => {
 
         const userid = req.user.emailid;
 
-        const videopath=req.videopath;
-        const transcript=req.transcript;
+        const videopath=req.body.videopath;
+        console.log("uhm",videopath);
+        const transcript=req.body.transcript;
         
         const user = await Entre.findOneAndUpdate({emailid: userid}, {
             number, 
