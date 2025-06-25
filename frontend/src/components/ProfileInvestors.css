@@ -8,9 +8,11 @@
 /* background: linear-gradient(135deg, #3a4e8c, #4fbecf, #1c2f45) !important; */
 background: linear-gradient(
   135deg,
-  #3a4e8c 0%,
+  /* #3a4e8c 0%,
   #4fbecf 30%,
-  #1c2f45 100%
+  #1c2f45 100% */
+  #0a3d62 0%, #062f4f 40%, #021931 70%, #010d15 100%
+
 ) !important;
 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
