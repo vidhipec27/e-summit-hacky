@@ -86,7 +86,7 @@ function App() {
         element: <><ProfileEntre/></>
       },
       {
-        path: "/chatpage",
+        path: "/chatpage/:emailid?",
         element: <><ChatPage/></>
       },
       {

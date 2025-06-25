@@ -1,145 +1,209 @@
-import { useEffect, useState, useRef } from "react";
-import { jwtDecode } from "jwt-decode";
-import { io } from "socket.io-client";
-import "./ChatPage.css";
+"use client"
 
-import Conversation from "./Conversation.jsx";
-import Message from "./Message.jsx";
-import { BASE_URL } from "../../helper.js";
-import { postToBackend, getFromBackend } from "../../store/fetchdata";
+import { useEffect, useState, useRef } from "react"
+import { jwtDecode } from "jwt-decode"
+import { io } from "socket.io-client"
+import "./ChatPage.css"
 
-const SOCKET_SERVER_URL = "http://localhost:5050";
+import Conversation from "./Conversation.jsx"
+import Message from "./Message.jsx"
+import { BASE_URL } from "../../helper.js"
+import { postToBackend, getFromBackend } from "../../store/fetchdata"
+import { useParams } from "react-router-dom"
+import Navbar from "../Navbar.jsx"
+
+const SOCKET_SERVER_URL = "http://localhost:5050"
 
 const ChatPage = () => {
-  const [conversations, setConversations] = useState([]); 
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [arrivalMessage, setArrivalMessage] = useState(null);
-  const socket = useRef();
-  const scrollRef = useRef();
+  const [conversations, setConversations] = useState([])
+  const [currentChat, setCurrentChat] = useState(null)
+  const [messages, setMessages] = useState([])
+  const [newMessage, setNewMessage] = useState("")
+  const [arrivalMessage, setArrivalMessage] = useState(null)
+  const socket = useRef()
+  const scrollRef = useRef()
+  const { emailid } = useParams()
 
   const getUser = () => {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
+    const token = localStorage.getItem("token")
+    if (!token) return null
     try {
-      const decoded = jwtDecode(token);
-      return { emailid: decoded.emailid, role: decoded.role };
+      const decoded = jwtDecode(token)
+      return { emailid: decoded.emailid, role: decoded.role }
     } catch (err) {
-      console.error("Token error:", err);
-      return null;
+      console.error("Token error:", err)
+      return null
     }
-  };
+  }
 
-  const user = getUser();
-  const userEmail = user?.emailid;
-  const userRole = user?.role;
+  const user = getUser()
+  const userEmail = user?.emailid
+  const userRole = user?.role
+
+  // Function to remove duplicate conversations
+  const removeDuplicateConversations = (conversations) => {
+    const seen = new Set()
+    const unique = []
+
+    conversations.forEach((conv) => {
+      if (conv.members && conv.members.length >= 2) {
+        // Create a unique key for this conversation based on members
+        const otherMember = conv.members.find((member) => member !== userEmail)
+
+        if (otherMember && !seen.has(otherMember)) {
+          seen.add(otherMember)
+          unique.push(conv)
+        }
+      }
+    })
+
+    return unique
+  }
 
   // Connect to socket
   useEffect(() => {
-    socket.current = io(SOCKET_SERVER_URL);
+    socket.current = io(SOCKET_SERVER_URL)
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
-      });
-    });
-  }, []);
+      })
+    })
+  }, [])
 
   useEffect(() => {
     if (arrivalMessage && currentChat?.members.includes(arrivalMessage.sender)) {
-      setMessages((prev) => [...prev, arrivalMessage]);
+      setMessages((prev) => [...prev, arrivalMessage])
     }
-  }, [arrivalMessage, currentChat]);
+  }, [arrivalMessage, currentChat])
 
   useEffect(() => {
     if (userEmail) {
-      socket.current.emit("addUser", { email: userEmail, role: userRole });
+      socket.current.emit("addUser", { email: userEmail, role: userRole })
     }
-  }, [userEmail]);
+  }, [userEmail])
 
-  // Fetch conversations
+  // Function to create a new conversation
+  const createConversation = async (receiverEmail) => {
+    try {
+      const res = await postToBackend(`${BASE_URL}/api/conversations/`, {
+        senderEmail: userEmail,
+        receiverEmail: receiverEmail,
+      })
+      return res.data
+    } catch (err) {
+      console.error("Error creating conversation:", err)
+      return null
+    }
+  }
+
+  // Fetch conversations and handle auto-initialization
   useEffect(() => {
     const fetchConversations = async () => {
-      if (!userEmail) return;
+      if (!userEmail) return
       try {
-        const res = await getFromBackend(`${BASE_URL}/api/conversations/`);
-        console.log(res);
+        const res = await getFromBackend(`${BASE_URL}/api/conversations/`)
+        console.log("Raw conversations:", res)
+
         const withCurrentUser = res.data.map((c) => ({
           ...c,
           currentUser: userEmail,
-        }));
-        setConversations(withCurrentUser);
+        }))
+
+        // Remove duplicates before setting state
+        const uniqueConversations = removeDuplicateConversations(withCurrentUser)
+        console.log("Unique conversations:", uniqueConversations)
+        setConversations(uniqueConversations)
+
+        // Auto-initialize conversation if emailid is provided in params
+        if (emailid && emailid.trim() !== "" && emailid !== userEmail) {
+          // Check if conversation already exists with this emailid
+          const existingConversation = uniqueConversations.find(
+            (conv) => conv.members && conv.members.includes(emailid),
+          )
+
+          if (existingConversation) {
+            // Set existing conversation as current
+            setCurrentChat(existingConversation)
+          } else {
+            // Create new conversation only if none exists
+            const newConversation = await createConversation(emailid)
+            if (newConversation) {
+              const newConvWithCurrentUser = {
+                ...newConversation,
+                currentUser: userEmail,
+              }
+              setConversations((prev) => [...prev, newConvWithCurrentUser])
+              setCurrentChat(newConvWithCurrentUser)
+            }
+          }
+        }
       } catch (err) {
-        console.error("Error fetching conversations:", err);
+        console.error("Error fetching conversations:", err)
       }
-    };
-    fetchConversations();
-  }, [userEmail]);
+    }
+    fetchConversations()
+  }, [userEmail, emailid])
 
   // Fetch messages for selected chat
   useEffect(() => {
     const fetchMessages = async () => {
-      if (!currentChat) return;
+      if (!currentChat) return
       try {
-        const res = await getFromBackend(`${BASE_URL}/api/messages/${currentChat._id}`);
-        // const data = await res.json();
-        console.log("wanna be printing res",res);
-        setMessages(res.data.messages);
+        const res = await getFromBackend(`${BASE_URL}/api/messages/${currentChat._id}`)
+        console.log("wanna be printing res", res)
+        setMessages(res.data.messages)
       } catch (err) {
-        console.error("Error fetching messages:", err);
+        console.error("Error fetching messages:", err)
       }
-    };
-    fetchMessages();
-  }, [currentChat]);
+    }
+    fetchMessages()
+  }, [currentChat])
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim() || !currentChat || !userEmail) return;
+    if (!newMessage.trim() || !currentChat || !userEmail) return
 
-    const receiverId = currentChat.members.find((m) => m !== userEmail);
+    const receiverId = currentChat.members.find((m) => m !== userEmail)
 
     socket.current.emit("sendMessage", {
       senderId: userEmail,
-      senderRole:userRole,
+      senderRole: userRole,
       receiverId,
       text: newMessage,
-    });
+    })
 
     try {
-        const data1={
-          sender: userEmail,
-          text: newMessage,
-          conversationId: currentChat._id,
-        };
-        const data2={
-          receiverEmail: receiverId,
-          message: newMessage,
-          convoId: currentChat._id,
-        };
-       const res = await postToBackend(`${BASE_URL}/api/messages/`,data2)
-      setMessages((prev) => [...prev, data1]);
-      setNewMessage("");
+      const data1 = {
+        sender: userEmail,
+        text: newMessage,
+        conversationId: currentChat._id,
+      }
+      const data2 = {
+        receiverEmail: receiverId,
+        message: newMessage,
+        convoId: currentChat._id,
+      }
+      const res = await postToBackend(`${BASE_URL}/api/messages/`, data2)
+      setMessages((prev) => [...prev, data1])
+      setNewMessage("")
     } catch (err) {
-      console.error("Sending failed:", err);
+      console.error("Sending failed:", err)
     }
-  };
+  }
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   return (
     <div className="messenger">
+      <Navbar/>
       <div className="chatMenu">
         <div className="chatMenuWrapper">
           <h3>Your Chats</h3>
           {conversations.map((c, index) => (
-            <Conversation
-              key={index}
-              conversation={c}
-              onClick={() => setCurrentChat(c)}
-            />
+            <Conversation key={index} conversation={c} onClick={() => setCurrentChat(c)} />
           ))}
         </div>
       </div>
@@ -150,7 +214,6 @@ const ChatPage = () => {
               <div className="chatBoxTop">
                 {messages.map((m, index) => (
                   <Message key={index} ref={scrollRef} message={m} own={m.sender === userEmail} />
-
                 ))}
               </div>
               <div className="chatBoxBottom">
@@ -171,7 +234,7 @@ const ChatPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChatPage;
+export default ChatPage
