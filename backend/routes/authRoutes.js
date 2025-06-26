@@ -14,6 +14,7 @@ router.post("/entre/login",entreLogin);
 router.post("/entre/register1", entreRegister);
 router.post("/entre/register2", verifyToken, upload, videoDuration,audioTranscribe, cloudinaryFile,completeEntreRegister);
 router.get("/entre/checkregistration", verifyToken, checkCompleteEntreRegister);
+router.post("/entre/uploadVideo",verifyToken,upload, videoDuration,audioTranscribe, cloudinaryFile);
 
 router.post("/investor/register", InvestorRegisterTemp);
 router.post("/investor/register1", investorRegister);

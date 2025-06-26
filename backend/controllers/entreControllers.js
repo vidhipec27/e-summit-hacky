@@ -150,6 +150,7 @@ export const checkCompleteEntreRegister = async (req, resp) => {
 export const entreLogin=async(req,resp)=>{
     try{
         const {emailid,password}=req.body;
+        console.log(emailid);
         const currentUser=await Entre.findOne({emailid:emailid});
         if(!currentUser){
             return resp.status(404).json({message:"User not found"});

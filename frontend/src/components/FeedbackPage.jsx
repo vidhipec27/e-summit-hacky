@@ -10,27 +10,72 @@ const Feedback = () => {
   const [feedback, setFeedback] = useState("");
   const [loading, setLoading] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
+  const [file, setfile] = useState(null);
+const [uploading, setUploading] = useState(false);
+
 
   const jwtToken=localStorage.getItem("token");
     const token=jwtDecode(jwtToken);
     console.log(token);
     const emailid=token.emailid;
   
-    useEffect(() => {
-    const fetchEntre = async () => {
-      try {
-        const res = await getFromBackend(`${BASE_URL}/search/entre/details/${emailid}`);
-        //const data = await res.json();
-        console.log("printing stuff",res.data);
-        setEntre(res.data.result);
-      } catch (err) {
-        console.error("Failed to fetch entrepreneur:", err);
-      }
-    };
-    fetchEntre();
-  }, [emailid]);
+   const fetchEntre = async () => {
+  try {
+    const res = await getFromBackend(`${BASE_URL}/search/entre/details/${emailid}`);
+    setEntre(res.data.result);
+  } catch (err) {
+    console.error("Failed to fetch entrepreneur:", err);
+  }
+};
+
+useEffect(() => {
+  fetchEntre();
+}, [emailid]);
+
   console.log("what is entre? in feedback frontend",entre);
   console.log("transcript?",entre?.[0]?.transcript);
+
+  const handleVideoUpload = async () => {
+  if (!file) return alert("Please select a video first.");
+
+  const formData = new FormData();
+  formData.append("videopath", file); // Key must match multer's `.single("videopath")`
+  formData.append("emailid", emailid);
+  // formData.append("number", entre?.[0]?.number);
+  // formData.append("needFunding", entre?.[0]?.needFunding);
+  // formData.append("startupStage", entre?.[0]?.startupStage);
+  // formData.append("teamSize", entre?.[0]?.teamSize);
+  // formData.append("experience", entre?.[0]?.experience);
+            
+  try {
+    setUploading(true);
+    const res = await fetch(`${BASE_URL}/auth/entre/uploadVideo`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`, // if protected route
+        // Do not set Content-Type! Browser handles boundary automatically
+      },
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("Video uploaded successfully!");
+      setfile(null);
+      await fetchEntre(); // call the same function you used in useEffect
+; // update locally
+    } else {
+      console.error("Upload failed:", data);
+      alert("Upload failed.");
+    }
+  } catch (err) {
+    console.log("Upload error:", err.message);
+    // alert("Something went wrong while uploading.");
+  } finally {
+    setUploading(false);
+  }
+};
+
   const Feedback = async () => {
     //const entre=fetchEntre();
     if (!entre[0]?.transcript) return alert("Transcript missing");
@@ -70,7 +115,7 @@ Avoid introductions or phrases like "as requested" or "here's your feedback". Ju
 
   if (!entre) return <div className="feedback-container"><div className="loading-message">Loading entrepreneur...</div></div>;
 
-  return (
+ return (
   <div className="feedback-container">
     <div className="feedback-content">
       <h2 className="feedback-title">Pitch Feedback</h2>
@@ -107,6 +152,24 @@ Avoid introductions or phrases like "as requested" or "here's your feedback". Ju
         <p>No pitch video available.</p>
       )}
 
+      {/* ✅ Upload or Replace Video */}
+      <div className="upload-section">
+        <h4>{entre[0]?.videopath ? "Replace Video:" : "Upload Your Pitch Video:"}</h4>
+        <input
+          type="file"
+          accept="video/*"
+          onChange={(e) => setfile(e.target.files[0])}
+          style={{ marginBottom: "0.5rem" }}
+        />
+        <button
+          onClick={handleVideoUpload}
+          className="feedback-button"
+          disabled={uploading || !file}
+        >
+          {uploading ? "Uploading..." : entre[0]?.videopath ? "Replace Video" : "Upload Video"}
+        </button>
+      </div>
+
       {/* ✅ Submit Feedback */}
       <div className="feedback-button-container">
         <button
@@ -128,5 +191,6 @@ Avoid introductions or phrases like "as requested" or "here's your feedback". Ju
     </div>
   </div>
 );
+
 }
 export default Feedback;
