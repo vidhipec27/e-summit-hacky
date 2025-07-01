@@ -23,15 +23,8 @@ export default function InvestorProfile() {
     try {
       // Build query parameters based on active filters
       let url = `${BASE_URL}/search/investor`
-      const params = new URLSearchParams()
-
-      if (searchDomain) params.append("search", searchDomain)
-      if (filterDomain) params.append("domain", filterDomain)
-      if (filterExperience) params.append("experience", filterExperience)
-
-      if (params.toString()) {
-        url += `?${params.toString()}`
-      }
+      url += `/${filterDomain ? filterDomain : '!'}`;
+      url += `/${filterExperience ? filterExperience : '!'}`
 
       const response = await getFromBackend(url)
       console.log("Fetched Investors:", response)
