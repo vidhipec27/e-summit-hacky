@@ -25,6 +25,7 @@ export default function InvestorProfile() {
       let url = `${BASE_URL}/search/investor`
       url += `/${filterDomain ? filterDomain : '!'}`;
       url += `/${filterExperience ? filterExperience : '!'}`
+      url += `/${searchDomain ? searchDomain : '!'}`
 
       const response = await getFromBackend(url)
       console.log("Fetched Investors:", response)

@@ -5,7 +5,7 @@ import { searchEntre, searchEntreName, searchEntreScore, getEntreDetails } from 
 import { getInvestorDetails, } from "../controllers/searchInvestor.js";
 const router=express.Router();
 
-router.get("/investor/:domain/:experience", verifyToken, searchInvestorFiltered);
+router.get("/investor/:domain/:experience/:name", verifyToken, searchInvestorFiltered);
 
 //router.get("/entre",verifyToken,searchEntre);
 router.get("/entre", verifyToken, searchEntreScore);

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
  export const verifyToken = async (req, resp, next) => {
     try {
         const bearerHeader = req.header("Authorization");
-        console.log("Authorization Header:", bearerHeader); // Debugging
+        // console.log("Authorization Header:", bearerHeader); // Debugging
         if (!bearerHeader) {
             return resp.status(403).json({ message: "Access Denied" });
         }
@@ -10,10 +10,10 @@ import jwt from "jsonwebtoken";
             const bearer = bearerHeader.split(" ");
             const token = bearer[1];//the token is the second object after splitting
             const ifVerified=jwt.verify(token,process.env.JWT_SECRET);
-            console.log(ifVerified);
-            console.log("balhblah");
+            // console.log(ifVerified);
+            // console.log("balhblah");
             req.user=ifVerified;
-            console.log(req.user);
+            // console.log(req.user);
             next();
         }
     }
