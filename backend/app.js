@@ -1,36 +1,3 @@
-// import express from "express";
-// import dotenv from "dotenv";
-// //import multer from "multer";
-// import cors from 'cors';
-// import { connectDb } from "./db.js";
-// import { verifyToken } from "./middleware/verifyToken.js";
-// import {initializeSocket} from "./socket.js"
-
-// const app=express();
-// app.use(cors());
-
-// dotenv.config();//to load the environment variables
-
-// app.use(express.json());
-
-// import authRoutes from "./routes/authRoutes.js";
-// import searchRoutes from "./routes/searchRoute.js";
-// import chatbotRoutes from "./routes/chatbotRoutes.js";
-// import conversationRoutes from "./routes/conversationRoutes.js";
-// import messageRoutes from "./routes/messageRoutes.js";
-
-// app.use("/auth",authRoutes);
-// app.use("/search", searchRoutes);
-// app.use("/api", chatbotRoutes);
-// app.use("/api/conversations", verifyToken, conversationRoutes);
-// app.use("/api/messages", verifyToken, messageRoutes);
-
-// const server = require("http").Server(app);
-// const io=initializeSocket(server);
-
-// app.listen(5050,()=>{
-//     connectDb()
-// });
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -39,6 +6,7 @@ import { connectDb } from "./db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
 import { initializeSocket } from "./socket.js";
 import { addFeedback } from "./controllers/entreControllers.js";
+import { createClient } from 'redis';
 
 dotenv.config(); 
 
@@ -48,6 +16,13 @@ initializeSocket(server);
 
 app.use(cors());
 app.use(express.json());
+
+const client = createClient( {url: process.env.REDIS_URL});
+await client.connect();
+const DEFAULT_EXPIRATION = 3600 //setting expiration time for redis cache as one hour
+console.log("redis client connected!");
+
+export { client };
 
 import authRoutes from "./routes/authRoutes.js";
 import searchRoutes from "./routes/searchRoute.js";

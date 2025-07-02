@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import "./ListEntre.css"
 import { BASE_URL } from "../helper"
-import { getFromBackend } from "../store/fetchdata.jsx"
+import { getFromBackend, postToBackend } from "../store/fetchdata.jsx"
 import Navbar from "./Navbar.jsx"
 
 export default function EntrepreneurProfile() {
@@ -14,15 +14,69 @@ export default function EntrepreneurProfile() {
   const [isLoading, setIsLoading] = useState(false)
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
   const [fundingFilter, setFundingFilter] = useState("")
+  const [searches, setSearches] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 })
+  const searchInputRef = useRef(null)
+  const suggestionsRef = useRef(null)
 
   useEffect(() => {
     fetchEntrepreneurs()
   }, [])
 
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchInputRef.current &&
+        !searchInputRef.current.contains(event.target) &&
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target)
+      ) {
+        setShowSuggestions(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  // Calculate dropdown position
+  const updateDropdownPosition = () => {
+    if (searchInputRef.current) {
+      const rect = searchInputRef.current.getBoundingClientRect()
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + window.scrollX,
+        width: rect.width,
+      })
+    }
+  }
+
+  // Update position when showing suggestions
+  useEffect(() => {
+    if (showSuggestions) {
+      updateDropdownPosition()
+
+      const handleResize = () => updateDropdownPosition()
+      const handleScroll = () => updateDropdownPosition()
+
+      window.addEventListener("resize", handleResize)
+      window.addEventListener("scroll", handleScroll)
+
+      return () => {
+        window.removeEventListener("resize", handleResize)
+        window.removeEventListener("scroll", handleScroll)
+      }
+    }
+  }, [showSuggestions])
+
   async function fetchEntrepreneurs(filter = "") {
     setIsLoading(true)
     try {
-      const url = filter ? `${BASE_URL}/search/entre/` : `${BASE_URL}/search/entre`
+      const url = filter ? `${BASE_URL}/search/entre/${filter}` : `${BASE_URL}/search/entre/!`
       const response = await getFromBackend(url)
       console.log("Fetched Entrepreneurs:", response)
       setEntrepreneurs(response.data.result || [])
@@ -34,20 +88,96 @@ export default function EntrepreneurProfile() {
     }
   }
 
+  async function storeSearch(name = "") {
+    try {
+      const url = `${BASE_URL}/search/entre/storesearch`
+      const response = await postToBackend(url, { name })
+      if (response.data.success) console.log("search stored successfully!")
+    } catch (err) {
+      console.error("Error fetching storing search:", err)
+    }
+  }
+
+  async function fetchSearches(name = "") {
+    try {
+      let url = `${BASE_URL}/search/entre/getsearch`
+      if (!name) url += "/!"
+      else url += `/${name}`
+      const response = await getFromBackend(url)
+      console.log("Fetched previous searches:", response)
+      setSearches(response.data.searches || [])
+    } catch (err) {
+      console.log("error fetching searches", err)
+      setSearches([])
+    }
+  }
+
   const handleSearch = () => {
-    fetchEntrepreneurs(searchTerm.trim().toLowerCase())
+    const searchValue = searchTerm.trim().toLowerCase()
+    fetchEntrepreneurs(searchValue)
+    // Store the search when search button is clicked
+    if (searchValue) {
+      storeSearch(searchValue)
+    }
+    setShowSuggestions(false)
   }
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSearch()
+      // Store the search when Enter is pressed
+      if (searchTerm.trim()) {
+        storeSearch(searchTerm.trim().toLowerCase())
+      }
+      setShowSuggestions(false)
     }
+  }
+
+  const handleInputChange = (e) => {
+    const value = e.target.value
+    setSearchTerm(value)
+
+    // Fetch searches every time a letter is typed
+    if (value.trim()) {
+      fetchSearches(value.trim().toLowerCase())
+      setShowSuggestions(true)
+    } else {
+      fetchSearches() // Fetch all searches when input is empty
+      setShowSuggestions(false)
+    }
+  }
+
+  const handleInputFocus = () => {
+    if (searchTerm.trim()) {
+      fetchSearches(searchTerm.trim().toLowerCase())
+    } else {
+      fetchSearches() // Fetch all searches when focused with empty input
+    }
+    setShowSuggestions(true)
+  }
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion)
+    // Automatically search when suggestion is clicked
+    fetchEntrepreneurs(suggestion.toLowerCase())
+    // Store the selected search
+    storeSearch(suggestion.toLowerCase())
+    setShowSuggestions(false)
   }
 
   const clearSearch = () => {
     setSearchTerm("")
     fetchEntrepreneurs("")
+    setShowSuggestions(false)
   }
+
+  // Filter searches to show only unique ones and limit to 5 most recent
+  const filteredSearches = searches
+    .filter(
+      (search, index, self) =>
+        search && search.trim() && self.findIndex((s) => s.toLowerCase() === search.toLowerCase()) === index,
+    )
+    .slice(0, 5)
 
   return (
     <div className="entrepreneur-container">
@@ -57,22 +187,18 @@ export default function EntrepreneurProfile() {
         {/* Header */}
         <div className="entrepreneur-header">
           <div className="header-content">
-            <h1 className="entrepreneur-title">
-              Top Emerging Entrepreneurs
-            </h1>
+            <h1 className="entrepreneur-title">Top Emerging Entrepreneurs</h1>
             <p className="entrepreneur-subtitle">Discover and connect with innovative startup founders</p>
           </div>
         </div>
 
         {/* Enhanced Search Section */}
         <div className="advanced-search-section">
-          <div className="search-header">
-          </div>
-
+          <div className="search-header"></div>
           <div className="search-controls-grid">
             {/* Main Search Bar */}
             <div className="main-search-container">
-              <div className="search-input-group">
+              <div className="search-input-group" ref={searchInputRef}>
                 <div className="search-input-wrapper">
                   <div className="search-prefix-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -85,8 +211,9 @@ export default function EntrepreneurProfile() {
                     className="advanced-search-input"
                     placeholder="Search by name, email, or keywords..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
+                    onFocus={handleInputFocus}
                   />
                   {searchTerm && (
                     <button className="clear-input-btn" onClick={clearSearch}>
@@ -97,26 +224,6 @@ export default function EntrepreneurProfile() {
                     </button>
                   )}
                 </div>
-
-                {/* Search Suggestions */}
-                {searchTerm && (
-                  <div className="search-suggestions-dropdown">
-                    <div className="suggestion-item">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
-                      </svg>
-                      Search for "{searchTerm}"
-                    </div>
-                    <div className="suggestion-item">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg>
-                      Find entrepreneurs named "{searchTerm}"
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* Search Actions */}
@@ -141,11 +248,40 @@ export default function EntrepreneurProfile() {
                     </>
                   )}
                 </button>
-
               </div>
             </div>
           </div>
         </div>
+
+        {/* Search Suggestions Dropdown - Now with actual previous searches */}
+        {showSuggestions && filteredSearches.length > 0 && (
+          <div
+            className="search-suggestions-dropdown"
+            ref={suggestionsRef}
+            style={{
+              top: `${dropdownPosition.top}px`,
+              left: `${dropdownPosition.left}px`,
+              width: `${dropdownPosition.width}px`,
+            }}
+          >
+            <div className="suggestions-header">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+              </svg>
+              Recent searches
+            </div>
+            {filteredSearches.map((search, index) => (
+              <div key={index} className="suggestion-item" onClick={() => handleSuggestionClick(search)}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                </svg>
+                <span className="suggestion-text">{search}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Results Info */}
         {entrepreneurs.length > 0 && (
@@ -163,18 +299,10 @@ export default function EntrepreneurProfile() {
             <table className="entrepreneur-table">
               <thead>
                 <tr>
-                  <th>
-                    Name
-                  </th>
-                  <th>
-                    Phone
-                  </th>
-                  <th>
-                    Funding Needed
-                  </th>
-                  <th>
-                    Actions
-                  </th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Funding Needed</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
