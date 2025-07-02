@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ListEntre.css";
 import { BASE_URL } from "../helper";
 import { getFromBackend } from "../store/fetchdata.jsx";
+import Navbar from "./Navbar.jsx";
 
 export default function EntrepreneurProfile() {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ export default function EntrepreneurProfile() {
 
   return (
     <div className="entrepreneur-container">
+      <Navbar></Navbar>
+
       {/* Header */}
       <div className="entrepreneur-header">
         <h1>Top Emerging Entrepreneurs</h1>

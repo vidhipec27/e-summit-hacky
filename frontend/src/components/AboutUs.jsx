@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from './Navbar';
 import './AboutUs.css';
 
 const AboutUs = () => (
   <div className="aboutus-container">
+    <Navbar></Navbar>
     <div className="aboutus-card">
       <h1>About Us</h1>
       <p className="aboutus-mission">

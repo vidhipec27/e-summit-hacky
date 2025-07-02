@@ -31,7 +31,7 @@ const Navbar = ({ handleLogout }) => {
         <button onClick={() => navigate("/chatpage")}>Chats</button>
       </div>
 
-      <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      <button className="logout-btn" onClick={() => navigate("/")}>Logout</button>
     </nav>
   );
 };

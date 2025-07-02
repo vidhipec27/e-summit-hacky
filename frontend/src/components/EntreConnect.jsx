@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import './EntreConnect.css';
 import entrepreneurImg from '../assets/entrepreneur.png';
+import Navbar from './Navbar';
 
 const EntreConnect = () => {
   const [name, setName] = useState('');
@@ -57,6 +58,7 @@ const EntreConnect = () => {
 
   return (
     <div className="entreconnect-container">
+      <Navbar></Navbar>
       <header className="entreconnect-header">
         <img src={entrepreneurImg} alt="Entrepreneur working" className="entreconnect-img" />
         <h1>EntreConnect</h1>

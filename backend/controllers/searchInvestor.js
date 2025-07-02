@@ -55,6 +55,48 @@ export const searchInvestorFiltered = async (req, resp) => {
     }
 }
 
+export const storeSearches = async (req, resp) => {
+    try {
+        const search = req.body.name;
+        const emailid = req.user.emailid;
+
+        const key = `entreconnect:entre:${emailid}:searches`;
+
+        const existingSearch = await client.lRange(key, 0, -1);
+        if (!existingSearch.includes(search)) {
+            await client.lPush(key, search.toLowerCase());
+            await client.lTrim(key, 0, 4);
+        }
+
+        resp.status(200).json({success: true});
+
+    } catch (error) {
+        console.log("error in storing searches", error);
+        resp.status(500).send(error);
+    }
+}
+
+export const getSearches = async (req, resp) => {
+    try {
+        const name = req.params.name;
+        const emailid = req.user.emailid;
+
+        const key = `entreconnect:entre:${emailid}:searches`;
+
+        const searches = await client.lRange(key, 0, -1);
+        
+        const filteredSearches = name !== '!' ? searches.filter((search) =>
+            search.toLowerCase().startsWith(name.toLowerCase())) : searches;
+
+        resp.status(200).json({success : true, searches: filteredSearches});
+
+    } catch (error) {
+        console.log("error in getting stored searches", error);
+        resp.status(500).send(error);
+    }
+}
+
+
 export const getInvestorDetails = async(req, resp) => {
     try {
         const email = req.body.emailid;
