@@ -31,7 +31,7 @@ export const entreRegister =async (req,resp)=>{
             password:passwordF,
         });
         const saveUser=await newEntre.save();
-        const token=jwt.sign({emailid:emailid, role:"entre", username: existingUser.username},key);
+        const token=jwt.sign({emailid:emailid, role:"entre", username: username}, key);
         resp.json({success: true,token});
 
         
@@ -44,33 +44,41 @@ export const entreRegister =async (req,resp)=>{
 
 export const completeEntreRegister = async(req, resp) => {
     try {
-        const{
+        const {
             number,
             needFunding,
             startupStage,
             teamSize,
-            experience,}=req.body;
+            experience,
+            allowPitchVisibility
+        } = req.body;
 
         const userid = req.user.emailid;
 
-        const videopath=req.body.videopath;
+        const videopath = req.body.videopath;
         console.log("uhm",videopath);
-        const transcript=req.body.transcript;
+        const transcript = req.body.transcript;
         
-        const user = await Entre.findOneAndUpdate({emailid: userid}, {
-            number, 
-            startupStage,
-            needFunding,
-            teamSize,
-            experience,
+        const updateFields = {
+            number,
+            startupStage: startupStage !== undefined ? Number(startupStage) : undefined,
+            needFunding: needFunding == "true" || needFunding == true,
+            teamSize: teamSize !== undefined ? Number(teamSize) : undefined,
+            experience: experience !== undefined ? Number(experience) : undefined,
             videopath,
             transcript,
-            completeRegistration: true
-        });
+            completeRegistration: true,
+            allowPitchVisibility: allowPitchVisibility == "true" || allowPitchVisibility == true
+        };
+
+        const user = await Entre.findOneAndUpdate(
+            { emailid: userid },
+            updateFields
+        );
 
         resp.status(200).json({ message: "Registration completed successfully." });
     } catch (error) {
-        console.log("this is the error in completing details for entre ", error);
+        console.error("this is the error in completing details for entre", error.stack || error);
         resp.status(500).json({"error": error.message});
     }
 }

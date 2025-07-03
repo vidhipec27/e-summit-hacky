@@ -219,6 +219,22 @@ const ProfileEntre = () => {
                       </div>
                   )}
               </div>
+
+              {/* Pitch Video Section */}
+              {(userProfile.allowPitchVisibility || token.emailid === userProfile.emailid) && userProfile.videopath && (
+                <div className="profile-form-group">
+                  <label className="profile-label">
+                    <span className="info-icon">🎬</span>
+                    Pitch Video
+                  </label>
+                  <div className="video-container">
+                    <video controls className="pitch-video">
+                      <source src={userProfile.videopath} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              )}
           </div>
       </div></>
   )
