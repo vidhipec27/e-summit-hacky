@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 160vh;
   background: var(--bg-gradient-dark);
   color: var(--text-primary);
   padding: 20px;
