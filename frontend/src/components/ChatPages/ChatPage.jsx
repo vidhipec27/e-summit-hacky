@@ -12,8 +12,6 @@ import { postToBackend, getFromBackend } from "../../store/fetchdata"
 import { useParams } from "react-router-dom"
 import Navbar from "../Navbar.jsx"
 
-const SOCKET_SERVER_URL = "http://localhost:5050"
-
 const ChatPage = () => {
   const [conversations, setConversations] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
@@ -23,13 +21,15 @@ const ChatPage = () => {
   const socket = useRef()
   const scrollRef = useRef()
   const { emailid } = useParams()
+  // const alreadyCreated = useRef()
+  // const alreadyCreated = false;
 
   const getUser = () => {
     const token = localStorage.getItem("token")
     if (!token) return null
     try {
       const decoded = jwtDecode(token)
-      return { emailid: decoded.emailid, role: decoded.role }
+      return { emailid: decoded.emailid, role: decoded.role, username: decoded.username }
     } catch (err) {
       console.error("Token error:", err)
       return null
@@ -39,6 +39,7 @@ const ChatPage = () => {
   const user = getUser()
   const userEmail = user?.emailid
   const userRole = user?.role
+  const username = user?.username
 
   // Function to remove duplicate conversations
   const removeDuplicateConversations = (conversations) => {
@@ -62,7 +63,7 @@ const ChatPage = () => {
 
   // Connect to socket
   useEffect(() => {
-    socket.current = io(SOCKET_SERVER_URL)
+    socket.current = io(BASE_URL)
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -89,6 +90,7 @@ const ChatPage = () => {
     try {
       const res = await postToBackend(`${BASE_URL}/api/conversations/`, {
         senderEmail: userEmail,
+        senderRole: userRole,
         receiverEmail: receiverEmail,
       })
       return res.data
@@ -124,7 +126,6 @@ const ChatPage = () => {
           )
 
           if (existingConversation) {
-            // Set existing conversation as current
             setCurrentChat(existingConversation)
           } else {
             // Create new conversation only if none exists
@@ -136,6 +137,8 @@ const ChatPage = () => {
               }
               setConversations((prev) => [...prev, newConvWithCurrentUser])
               setCurrentChat(newConvWithCurrentUser)
+
+              fetchConversations();
             }
           }
         }

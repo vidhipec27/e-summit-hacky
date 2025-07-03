@@ -31,7 +31,7 @@ export const register=async (req,resp)=>{
         });
         const saveUser=await newUser.save();
 
-        const token=jwt.sign({emailid:emailid},key);
+        const token=jwt.sign({emailid:emailid, username: username},key);
         console.log(token);
         const userObject =  saveUser.toObject(); // we need to convert this to plain object
         delete userObject.password;
@@ -60,7 +60,7 @@ export const login=async(req,resp)=>{
         if(!boolean){
             return resp.status(200).json({success: false, message:"Invalid credentials. Please check again!"});
         }
-        const token=jwt.sign({emailid:emailid},key);
+        const token=jwt.sign({emailid:emailid, username: currentUser.username},key);
         console.log(token);
         const userObject = currentUser.toObject(); // we need to convert this to plain object
         delete userObject.password;

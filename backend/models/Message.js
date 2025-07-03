@@ -15,6 +15,14 @@ const schema = new mongoose.Schema(
       type: String, 
       required: true,
     },
+    senderName: {
+      type: String,
+      required: false,
+    },
+    receiverName: {
+      type: String,
+      required: false
+    },
     text: {
       type: String,
       required: true,
