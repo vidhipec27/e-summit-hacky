@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import "./Navbar.css";
 
-const Navbar = ({ handleLogout }) => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   const getUserDetails = () => {
@@ -22,7 +23,7 @@ const Navbar = ({ handleLogout }) => {
   return (
     <nav className="navbar">
 
-      <div className="logo" onClick={() => userRole == "investor" ? navigate("/Home/investor") : navigate("/Home/entrepreneur")}>Entre-Connect</div>
+      <div className="logo" onClick={() => userRole === "investor" ? navigate("/Home/investor") : navigate("/Home/entrepreneur")}>Entre-Connect</div>
 
       <div className="nav-links">
         {/* <button onClick={() => navigate("/")}>Home</button> */}
