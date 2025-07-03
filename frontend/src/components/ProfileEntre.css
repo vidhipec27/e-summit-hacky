@@ -142,6 +142,7 @@ body {
   border-radius: 10px;
   word-wrap: break-word;
   width: auto; /* Changed from 100% to auto */
+  max-width: 400px;
   display: inline-block;
   border: 1px solid rgba(0, 229, 255, 0.1);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);

@@ -147,9 +147,9 @@ const ProfileEntre = () => {
                       Funding Status
                   </label>
                   <div className="profile-value value-with-badge">
-                      <span>{userProfile.needFunding === 1 ? "Seeking Investment" : "Not Seeking Funding"}</span>
-                      <span className={`badge ${userProfile.needFunding === 1 ? "badge-success" : "badge-warning"}`}>
-                          {userProfile.needFunding === 1 ? "OPEN" : "CLOSED"}
+                      <span>{userProfile.needFunding == 1 ? "Seeking Investment" : "Not Seeking Funding"}</span>
+                      <span className={`badge ${userProfile.needFunding == 1 ? "badge-success" : "badge-warning"}`}>
+                          {userProfile.needFunding == 1 ? "OPEN" : "CLOSED"}
                       </span>
                   </div>
               </div>
