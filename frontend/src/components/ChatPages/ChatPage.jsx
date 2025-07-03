@@ -21,8 +21,7 @@ const ChatPage = () => {
   const socket = useRef()
   const scrollRef = useRef()
   const { emailid } = useParams()
-  // const alreadyCreated = useRef()
-  // const alreadyCreated = false;
+  const createdWithRef = useRef(new Set());
 
   const getUser = () => {
     const token = localStorage.getItem("token")
@@ -39,7 +38,6 @@ const ChatPage = () => {
   const user = getUser()
   const userEmail = user?.emailid
   const userRole = user?.role
-  const username = user?.username
 
   // Function to remove duplicate conversations
   const removeDuplicateConversations = (conversations) => {
@@ -86,6 +84,8 @@ const ChatPage = () => {
   }, [userEmail])
 
   // Function to create a new conversation
+
+
   const createConversation = async (receiverEmail) => {
     try {
       const res = await postToBackend(`${BASE_URL}/api/conversations/`, {
@@ -135,10 +135,10 @@ const ChatPage = () => {
                 ...newConversation,
                 currentUser: userEmail,
               }
-              setConversations((prev) => [...prev, newConvWithCurrentUser])
+              const updated = setConversations((prev) =>
+                removeDuplicateConversations([...prev, newConvWithCurrentUser])
+              )
               setCurrentChat(newConvWithCurrentUser)
-
-              fetchConversations();
             }
           }
         }

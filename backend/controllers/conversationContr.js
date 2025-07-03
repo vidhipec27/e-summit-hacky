@@ -6,6 +6,7 @@ export const getConversation= async (req, res) => {
   try {
     const senderEmail = req.user.emailid; 
     const senderName = req.user.username;
+    console.log("sender name is here ------>", senderName);
 
     console.log(senderName);
 
