@@ -47,6 +47,7 @@
 - MongoDB for data storage
 - Socket.io for real time messaging
 - Flask for peer-connect model
+- Redis for caching previous searches
 
 **AI Chatbot:**
 - Gemini API  integration 
