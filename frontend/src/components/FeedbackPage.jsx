@@ -18,6 +18,7 @@ const Feedback = () => {
   const jwtToken = localStorage.getItem("token")
   const token = jwtDecode(jwtToken)
   const emailid = token.emailid
+  const [videoVersion, setVideoVersion] = useState(0)
 
   const fetchEntre = async () => {
     try {
@@ -54,6 +55,7 @@ const Feedback = () => {
         alert("Video uploaded successfully!")
         setfile(null)
         await fetchEntre()
+        setVideoVersion(prev => prev + 1)
       } else {
         console.error("Upload failed:", data)
         alert("Upload failed.")
@@ -161,7 +163,7 @@ Avoid introductions or phrases like "as requested" or "here's your feedback". Ju
 
           {entre[0]?.videopath ? (
             <div className="video-container">
-              <video controls className="pitch-video">
+              <video key={`${entre[0].videopath}-${videoVersion}`} controls className="pitch-video">
                 <source src={entre[0].videopath} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
