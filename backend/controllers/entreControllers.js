@@ -168,3 +168,29 @@ catch(error){
     resp.status(500).json({"error":error.message});
 }
 }
+
+//update pitch visibility
+export const updatePitchVisibility = async (req, resp) => {
+    try {
+        const { allowPitchVisibility } = req.body;
+        const userid = req.user.emailid;
+
+        const user = await Entre.findOneAndUpdate(
+            { emailid: userid },
+            { allowPitchVisibility: allowPitchVisibility == "true" || allowPitchVisibility == true },
+            { new: true }
+        );
+
+        if (!user) {
+            return resp.status(404).json({ message: "User not found" });
+        }
+
+        resp.status(200).json({ 
+            message: "Pitch visibility updated successfully.",
+            allowPitchVisibility: user.allowPitchVisibility 
+        });
+    } catch (error) {
+        console.error("Error updating pitch visibility:", error);
+        resp.status(500).json({"error": error.message});
+    }
+}

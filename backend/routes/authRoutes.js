@@ -1,5 +1,5 @@
 import express from "express";
-import { entreLogin,entreRegister, details, completeEntreRegister, checkCompleteEntreRegister } from "../controllers/entreControllers.js";
+import { entreLogin,entreRegister, details, completeEntreRegister, checkCompleteEntreRegister, updatePitchVisibility } from "../controllers/entreControllers.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { InvestorLogin, detailsIn, investorRegister, completeInvestorRegister, checkCompleteInvestorRegister } from "../controllers/investorController.js";
 import { upload,cloudinaryFile } from "../middleware/cloudinary.js";
@@ -14,6 +14,7 @@ router.post("/entre/register1", entreRegister);
 router.post("/entre/register2", verifyToken, upload, videoDuration,audioTranscribe, cloudinaryFile,completeEntreRegister);
 router.get("/entre/checkregistration", verifyToken, checkCompleteEntreRegister);
 router.post("/entre/uploadVideo",verifyToken,upload, videoDuration,audioTranscribe, cloudinaryFile);
+router.put("/entre/updatePitchVisibility", verifyToken, updatePitchVisibility);
 // router.post("/entre/uploadVideo",verifyToken,upload, videoDuration, cloudinaryFile);
 
 router.post("/investor/register1", investorRegister);

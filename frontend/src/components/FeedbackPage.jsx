@@ -14,6 +14,8 @@ const Feedback = () => {
   const [showTranscript, setShowTranscript] = useState(false)
   const [file, setfile] = useState(null)
   const [uploading, setUploading] = useState(false)
+  const [allowPitchVisibility, setAllowPitchVisibility] = useState(false)
+  const [updatingVisibility, setUpdatingVisibility] = useState(false)
 
   const jwtToken = localStorage.getItem("token")
   const token = jwtDecode(jwtToken)
@@ -24,6 +26,7 @@ const Feedback = () => {
     try {
       const res = await getFromBackend(`${BASE_URL}/search/entre/details/${emailid}`)
       setEntre(res.data.result)
+      setAllowPitchVisibility(res.data.result[0]?.allowPitchVisibility || false)
     } catch (err) {
       console.error("Failed to fetch entrepreneur:", err)
     }
@@ -50,7 +53,9 @@ const Feedback = () => {
         body: formData,
       })
 
+      const data = await res.json()
       if (res.ok) {
+        alert("Video uploaded successfully!")
         setfile(null)
         await fetchEntre()
         setVideoVersion(prev => prev + 1)
@@ -58,13 +63,40 @@ const Feedback = () => {
         console.error("Upload failed:", data)
         alert("Upload failed.")
       }
-
-      window.location.reload();
-      console.log("reloaded!");
     } catch (err) {
       console.log("Upload error:", err.message)
     } finally {
       setUploading(false)
+    }
+  }
+
+  const handlePitchVisibilityUpdate = async () => {
+    try {
+      setUpdatingVisibility(true)
+      const res = await fetch(`${BASE_URL}/auth/entre/updatePitchVisibility`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
+        body: JSON.stringify({
+          allowPitchVisibility: !allowPitchVisibility
+        }),
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        setAllowPitchVisibility(!allowPitchVisibility)
+        alert("Pitch visibility updated successfully!")
+      } else {
+        console.error("Update failed:", data)
+        alert("Failed to update pitch visibility.")
+      }
+    } catch (err) {
+      console.error("Update error:", err)
+      alert("Failed to update pitch visibility.")
+    } finally {
+      setUpdatingVisibility(false)
     }
   }
 
@@ -120,6 +152,45 @@ Avoid introductions or phrases like "as requested" or "here's your feedback". Ju
             Pitch Feedback Analysis
           </h1>
           <p className="feedback-subtitle">Get AI-powered insights on your startup pitch</p>
+        </div>
+
+        {/* Pitch Visibility Settings Section */}
+        <div className="section-card">
+          <div className="section-header">
+            <h3 className="section-title">
+              Pitch Visibility Settings
+            </h3>
+          </div>
+
+          <div className="visibility-settings">
+            <div className="visibility-info">
+              <p className="visibility-description">
+                Control who can view your pitch video. When enabled, investors will be able to see your pitch video on your profile.
+              </p>
+            </div>
+            
+            <div className="visibility-toggle">
+              <label className="toggle-label">
+                <input
+                  type="checkbox"
+                  checked={allowPitchVisibility}
+                  onChange={handlePitchVisibilityUpdate}
+                  disabled={updatingVisibility}
+                  className="toggle-checkbox"
+                />
+                <span className="toggle-slider"></span>
+                <span className="toggle-text">
+                  {allowPitchVisibility ? "Pitch video is visible to investors" : "Pitch video is private"}
+                </span>
+              </label>
+              {updatingVisibility && (
+                <div className="updating-indicator">
+                  <div className="button-spinner"></div>
+                  <span>Updating...</span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Transcript Section */}
