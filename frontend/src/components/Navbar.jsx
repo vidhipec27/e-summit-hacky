@@ -20,13 +20,24 @@ const Navbar = () => {
   const user = getUserDetails();
   const userRole = user?.role;
 
+  const handleHomeClick = () => {
+    if (userRole === "investor") {
+      navigate("/Home/investor");
+    } else if (userRole === "entre") {
+      navigate("/Home/entrepreneur");
+    } else {
+      //Fallback to entrepreneur home if role is not clear
+      navigate("/Home/entrepreneur");
+    }
+  };
+
   return (
     <nav className="navbar">
 
-      <div className="logo" onClick={() => userRole === "investor" ? navigate("/Home/investor") : navigate("/Home/entrepreneur")}>Entre-Connect</div>
+      <div className="logo" onClick={handleHomeClick}>Entre-Connect</div>
 
       <div className="nav-links">
-        {/* <button onClick={() => navigate("/")}>Home</button> */}
+        <button onClick={handleHomeClick}>Home</button>
         <button onClick={() => navigate("/about")}>About Us</button>
         <button onClick={() => navigate("/contact")}>Contact</button>
         <button onClick={() => navigate("/chatpage")}>Chats</button>
