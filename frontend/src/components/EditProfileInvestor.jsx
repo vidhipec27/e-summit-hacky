@@ -78,7 +78,7 @@ const EditProfileInvestor = () => {
       if (response.ok) {
         setUserProfile(data.user)
         setIsEditing(false)
-        alert("Profile updated successfully!")
+        // alert("Profile updated successfully!")
       } else {
         setError(data.message || "Failed to update profile")
       }
