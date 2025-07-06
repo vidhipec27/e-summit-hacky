@@ -22,7 +22,7 @@ export const sendMessage=async(req,resp)=>{
 export const getMessage=async(req,resp)=>{
     try{
         const convoId=req.params.convoId;
-        const messages=await Message.find({conversationId:convoId});
+        const messages = await Message.find({conversationId:convoId});
         resp.status(200).json({success:true, messages});
     }
     catch(error){

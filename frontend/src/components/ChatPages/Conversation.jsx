@@ -1,9 +1,14 @@
 const Conversation = ({ conversation, onClick }) => {
     console.log("convo",conversation);
-  const partnerEmail = conversation.members.find(m => m !== conversation.currentUser);
+  let partnerName;
+  if (conversation.currentUser === conversation.members[0])
+      partnerName = conversation.names[1];
+  else
+      partnerName = conversation.names[0];
+
   return (
     <div onClick={onClick} className="conversation">
-      <p>{partnerEmail}</p>
+      <p>{partnerName}</p>
     </div>
   );
 };

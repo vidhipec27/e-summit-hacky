@@ -7,61 +7,6 @@ dotenv.config();
 const key=process.env.JWT_SECRET;
 
 //REGISTER
-export const entreRegisterTemp =async (req,resp)=>{
-    //console.log(req.body);
-    try{
-        const{
-            username,
-            emailid,
-            password,
-            number,
-            needFunding,
-            startupStage,
-            teamSize,
-            experience,
-        videopath,
-    transcript,}=req.body;
-        if (!emailid || emailid.trim() === '') {
-            return resp.status(400).json({ message: 'Email is required' });
-        }
-        const existingUser = await Entre.findOne({ emailid });
-        if (existingUser) {
-        return resp.status(400).json({success: false, message: "Email already registered" });
-    }
-        const salt=await bcrypt.genSalt();
-        const passwordF=await bcrypt.hash(password, salt);
-        const newEntre=new Entre({
-            username,
-            emailid,
-            password:passwordF,
-            number,
-            needFunding,
-            startupStage,
-            teamSize,
-            experience,
-            videopath,
-            transcript,
-        });
-        const saveUser=await newEntre.save();
-
-        const token=jwt.sign({emailid:emailid, role:"entre"},key);
-        console.log(token);
-        // const userObject =  saveUser.toObject(); // we need to convert this to plain object
-        // delete userObject.password;
-
-        //delete currentUser.password;//this doesn't work
-
-        resp.json({success: true,token});
-
-        
-    }
-    catch(error){
-        console.log("this is the error in registering, ", error);
-        resp.status(500).json({"error":error.message});
-    }
-};
-
-//REGISTER
 
 export const entreRegister =async (req,resp)=>{
     //console.log(req.body);
@@ -86,7 +31,7 @@ export const entreRegister =async (req,resp)=>{
             password:passwordF,
         });
         const saveUser=await newEntre.save();
-        const token=jwt.sign({emailid:emailid, role:"entre"},key);
+        const token=jwt.sign({emailid:emailid, role:"entre", username: username}, key);
         resp.json({success: true,token});
 
         
@@ -99,33 +44,41 @@ export const entreRegister =async (req,resp)=>{
 
 export const completeEntreRegister = async(req, resp) => {
     try {
-        const{
+        const {
             number,
             needFunding,
             startupStage,
             teamSize,
-            experience,}=req.body;
+            experience,
+            allowPitchVisibility
+        } = req.body;
 
         const userid = req.user.emailid;
 
-        const videopath=req.body.videopath;
+        const videopath = req.body.videopath;
         console.log("uhm",videopath);
-        const transcript=req.body.transcript;
+        const transcript = req.body.transcript;
         
-        const user = await Entre.findOneAndUpdate({emailid: userid}, {
-            number, 
-            startupStage,
-            needFunding,
-            teamSize,
-            experience,
+        const updateFields = {
+            number,
+            startupStage: startupStage !== undefined ? Number(startupStage) : undefined,
+            needFunding: needFunding == "true" || needFunding == true,
+            teamSize: teamSize !== undefined ? Number(teamSize) : undefined,
+            experience: experience !== undefined ? Number(experience) : undefined,
             videopath,
             transcript,
-            completeRegistration: true
-        });
+            completeRegistration: true,
+            allowPitchVisibility: allowPitchVisibility == "true" || allowPitchVisibility == true
+        };
+
+        const user = await Entre.findOneAndUpdate(
+            { emailid: userid },
+            updateFields
+        );
 
         resp.status(200).json({ message: "Registration completed successfully." });
     } catch (error) {
-        console.log("this is the error in completing details for entre ", error);
+        console.error("this is the error in completing details for entre", error.stack || error);
         resp.status(500).json({"error": error.message});
     }
 }
@@ -159,7 +112,7 @@ export const entreLogin=async(req,resp)=>{
         if(!boolean){
             return resp.status(200).json({success: false, message:"Invalid credentials. Please check again!"});
         }
-        const token=jwt.sign({emailid:emailid, role:"entre"},key);
+        const token=jwt.sign({emailid:emailid, role:"entre", username: currentUser.username},key);
         console.log(token);
         // const userObject = currentUser.toObject(); // we need to convert this to plain object
         // delete userObject.password;

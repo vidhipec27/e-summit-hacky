@@ -15,6 +15,7 @@ const CompleteEntreRegister = () => {
     experience: "",
     videopath: null,
     transcript:null,
+    allowPitchVisibility: false,
   });
 
   const [error, setError] = useState("");
@@ -22,16 +23,21 @@ const CompleteEntreRegister = () => {
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+    const { name, value, type, files, checked } = e.target;
     if (type === "file") {
       setFormData({
         ...formData,
         [name]: files[0],
       });
-    } else if (name === "needFunding") {
+    } else if (name == "needFunding") {
       setFormData({
         ...formData,
-        [name]: value === "yes",
+        [name]: value == "yes",
+      });
+    } else if (type == "checkbox") {
+      setFormData({
+        ...formData,
+        [name]: checked,
       });
     } else {
       setFormData({
@@ -65,6 +71,7 @@ const CompleteEntreRegister = () => {
     if (formData.videopath) {
       data.append("videopath", formData.videopath);
     }
+    data.append("allowPitchVisibility", formData.allowPitchVisibility);
     //data.append("transcript",formData.transcript);
     console.log("call ho raha hai? ",formData);
     try {
@@ -153,6 +160,17 @@ const CompleteEntreRegister = () => {
           accept="video/*" 
           onChange={handleChange}
         />
+
+        <label style={{marginTop: '1em'}}>
+          <input
+            type="checkbox"
+            name="allowPitchVisibility"
+            checked={formData.allowPitchVisibility}
+            onChange={handleChange}
+            style={{marginRight: '0.5em'}}
+          />
+          Allow investors to view my pitch video
+        </label>
 
         <button type="submit" disabled={loading}>
           {loading ? "Completing..." : "Complete Registration"}

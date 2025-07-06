@@ -51,6 +51,10 @@ const schema=new mongoose.Schema({
     completeRegistration: {
         type: Boolean,
         default: false
+    },
+     allowPitchVisibility: {
+        type: Boolean,
+        default: false
     }
     },
     {timestamps:true}

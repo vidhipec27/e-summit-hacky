@@ -6,6 +6,10 @@ const schema = new mongoose.Schema(
       type: [String], // Array of user emails
       required: true,
     },
+    names: {
+      type: [String], // Array of user names
+      required: false
+    }
   },
   { timestamps: true }
 );
