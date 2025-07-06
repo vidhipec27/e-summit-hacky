@@ -194,3 +194,66 @@ export const updatePitchVisibility = async (req, resp) => {
         resp.status(500).json({"error": error.message});
     }
 }
+
+//get entrepreneur profile
+export const getEntreProfile = async (req, resp) => {
+    try {
+        const userid = req.user.emailid;
+        const user = await Entre.findOne({ emailid: userid }).select('-password');
+        
+        if (!user) {
+            return resp.status(404).json({ message: "User not found" });
+        }
+
+        resp.status(200).json({ 
+            success: true,
+            user: user
+        });
+    } catch (error) {
+        console.error("Error fetching entrepreneur profile:", error);
+        resp.status(500).json({"error": error.message});
+    }
+}
+
+//update entrepreneur profile
+export const updateEntreProfile = async (req, resp) => {
+    try {
+        const userid = req.user.emailid;
+        const {
+            username,
+            number,
+            needFunding,
+            startupStage,
+            teamSize,
+            experience
+        } = req.body;
+
+        const updateFields = {};
+        
+        if (username !== undefined) updateFields.username = username;
+        if (number !== undefined) updateFields.number = number;
+        if (needFunding !== undefined) updateFields.needFunding = needFunding == "true" || needFunding === true;
+        if (startupStage !== undefined) updateFields.startupStage = Number(startupStage);
+        if (teamSize !== undefined) updateFields.teamSize = Number(teamSize);
+        if (experience !== undefined) updateFields.experience = Number(experience);
+
+        const user = await Entre.findOneAndUpdate(
+            { emailid: userid },
+            updateFields,
+            { new: true }
+        ).select('-password');
+
+        if (!user) {
+            return resp.status(404).json({ message: "User not found" });
+        }
+
+        resp.status(200).json({ 
+            success: true,
+            message: "Profile updated successfully.",
+            user: user
+        });
+    } catch (error) {
+        console.error("Error updating entrepreneur profile:", error);
+        resp.status(500).json({"error": error.message});
+    }
+}

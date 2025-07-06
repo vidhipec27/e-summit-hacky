@@ -112,3 +112,66 @@ export const detailsIn=async(req,resp)=>{
         resp.status(500).message("there has been an error oopsie poopsie");
     }
 }
+
+//get investor profile
+export const getInvestorProfile = async (req, resp) => {
+    try {
+        const userid = req.user.emailid;
+        const user = await Investor.findOne({ emailid: userid }).select('-password');
+        
+        if (!user) {
+            return resp.status(404).json({ message: "User not found" });
+        }
+
+        resp.status(200).json({ 
+            success: true,
+            user: user
+        });
+    } catch (error) {
+        console.error("Error fetching investor profile:", error);
+        resp.status(500).json({"error": error.message});
+    }
+}
+
+//update investor profile
+export const updateInvestorProfile = async (req, resp) => {
+    try {
+        const userid = req.user.emailid;
+        const {
+            username,
+            number,
+            willFund,
+            domain,
+            experience,
+            expertise
+        } = req.body;
+
+        const updateFields = {};
+        
+        if (username !== undefined) updateFields.username = username;
+        if (number !== undefined) updateFields.number = number;
+        if (willFund !== undefined) updateFields.willFund = willFund == "true" || willFund === true;
+        if (domain !== undefined) updateFields.domain = domain;
+        if (experience !== undefined) updateFields.experience = experience;
+        if (expertise !== undefined) updateFields.expertise = expertise;
+
+        const user = await Investor.findOneAndUpdate(
+            { emailid: userid },
+            updateFields,
+            { new: true }
+        ).select('-password');
+
+        if (!user) {
+            return resp.status(404).json({ message: "User not found" });
+        }
+
+        resp.status(200).json({ 
+            success: true,
+            message: "Profile updated successfully.",
+            user: user
+        });
+    } catch (error) {
+        console.error("Error updating investor profile:", error);
+        resp.status(500).json({"error": error.message});
+    }
+}

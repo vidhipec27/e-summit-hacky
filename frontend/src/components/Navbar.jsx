@@ -31,6 +31,17 @@ const Navbar = () => {
     }
   };
 
+  const handleProfileClick = () => {
+    if (userRole === "investor") {
+      navigate("/edit-profile/investor");
+    } else if (userRole === "entre") {
+      navigate("/edit-profile/entrepreneur");
+    } else {
+      //Fallback to entrepreneur profile if role is not clear
+      navigate("/edit-profile/entrepreneur");
+    }
+  };
+
   return (
     <nav className="navbar">
 
@@ -41,6 +52,7 @@ const Navbar = () => {
         <button onClick={() => navigate("/about")}>About Us</button>
         <button onClick={() => navigate("/contact")}>Contact</button>
         <button onClick={() => navigate("/chatpage")}>Chats</button>
+        <button onClick={handleProfileClick}>Profile</button>
       </div>
 
       <button className="logout-btn" onClick={() => navigate("/")}>Logout</button>

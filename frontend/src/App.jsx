@@ -18,6 +18,8 @@ import EntrepreneurProfile from './components/ListEntre.jsx';
 // import ProfileInvestors from './components/ProfileInvestor.jsx';
 import ProfileInvestors from './components/ProfileInvestor.jsx';
 import ProfileEntre from './components/ProfileEntre.jsx';
+import EditProfileEntre from './components/EditProfileEntre.jsx';
+import EditProfileInvestor from './components/EditProfileInvestor.jsx';
 import ChatPage from './components/ChatPages/ChatPage.jsx';
 import AboutUs from './components/AboutUs.jsx';
 import Contact from './components/Contact.jsx';
@@ -84,6 +86,14 @@ function App() {
       {
         path: "/profileE/:emailid",
         element: <><ProfileEntre/></>
+      },
+      {
+        path: "/edit-profile/entrepreneur",
+        element: <><EditProfileEntre /></>
+      },
+      {
+        path: "/edit-profile/investor",
+        element: <><EditProfileInvestor /></>
       },
       {
         path: "/chatpage/:emailid?",
