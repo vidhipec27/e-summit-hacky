@@ -203,23 +203,7 @@ const EditProfileInvestor = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <label className="form-label">
-                  <span className="info-icon">
-                    <FaDollarSign size={12} />
-                  </span>
-                  Willing to Fund
-                </label>
-                <select
-                  name="willFund"
-                  value={editForm.willFund ? "true" : "false"}
-                  onChange={handleEditChange}
-                  className="form-select"
-                >
-                  <option value="false">Not Currently Investing</option>
-                  <option value="true">Actively Investing</option>
-                </select>
-              </div>
+
 
               <div className="form-group">
                 <label className="form-label">
@@ -228,14 +212,22 @@ const EditProfileInvestor = () => {
                   </span>
                   Investment Domain
                 </label>
-                <input
-                  type="text"
+                <select
                   name="domain"
                   value={editForm.domain}
                   onChange={handleEditChange}
-                  className="form-input"
-                  placeholder="e.g., Technology, Healthcare, Finance"
-                />
+                  className="form-select"
+                >
+                  <option value="">Select investment domain</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Education">Education</option>
+                  <option value="E-commerce">E-commerce</option>
+                  <option value="Real Estate">Real Estate</option>
+                  <option value="Manufacturing">Manufacturing</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
 
               <div className="form-group">
@@ -245,14 +237,18 @@ const EditProfileInvestor = () => {
                   </span>
                   Investment Experience
                 </label>
-                <input
-                  type="text"
+                <select
                   name="experience"
                   value={editForm.experience}
                   onChange={handleEditChange}
-                  className="form-input"
-                  placeholder="e.g., 5+ years in venture capital"
-                />
+                  className="form-select"
+                >
+                  <option value="">Select experience level</option>
+                  <option value="Beginner">Beginner (0-2 years)</option>
+                  <option value="Intermediate">Intermediate (3-5 years)</option>
+                  <option value="Advanced">Advanced (6-10 years)</option>
+                  <option value="Expert">Expert (10+ years)</option>
+                </select>
               </div>
 
               <div className="form-group">
@@ -324,20 +320,7 @@ const EditProfileInvestor = () => {
                 <p className="profile-info-value">{userProfile?.number || "Not available"}</p>
               </div>
 
-              <div className="profile-info-group">
-                <label className="profile-info-label">
-                  <span className="info-icon">
-                    <FaDollarSign size={12} />
-                  </span>
-                  Investment Status
-                </label>
-                <div className="profile-info-value">
-                  <span>{userProfile?.willFund ? "Actively Investing" : "Not Currently Investing"}</span>
-                  <span className={`status-badge ${userProfile?.willFund ? "status-active" : "status-inactive"}`}>
-                    {userProfile?.willFund ? "ACTIVE" : "INACTIVE"}
-                  </span>
-                </div>
-              </div>
+
 
               <div className="profile-info-group">
                 <label className="profile-info-label">

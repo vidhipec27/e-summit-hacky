@@ -20,6 +20,17 @@ const Navbar = () => {
   const user = getUserDetails();
   const userRole = user?.role;
 
+    const handleHomeClick = () => {
+    if (userRole === "investor") {
+      navigate("/Home/investor");
+    } else if (userRole === "entre") {
+      navigate("/Home/entrepreneur");
+    } else {
+      //Fallback to entrepreneur home if role is not clear
+      navigate("/Home/entrepreneur");
+    }
+  };
+
   const handleProfileClick = () => {
     if (userRole === "investor") {
       navigate("/edit-profile/investor");
