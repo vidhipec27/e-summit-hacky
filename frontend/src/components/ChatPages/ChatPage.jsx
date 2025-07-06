@@ -22,6 +22,7 @@ const ChatPage = () => {
   const scrollRef = useRef()
   const { emailid } = useParams()
   const createdWithRef = useRef(new Set());
+  const isCreated=useRef(false);
 
   const getUser = () => {
     const token = localStorage.getItem("token")
@@ -127,9 +128,11 @@ const ChatPage = () => {
 
           if (existingConversation) {
             setCurrentChat(existingConversation)
-          } else {
+          } else if(!isCreated.current) {
             // Create new conversation only if none exists
+            isCreated.current=true;
             const newConversation = await createConversation(emailid)
+            isCreated.current=false;
             if (newConversation) {
               const newConvWithCurrentUser = {
                 ...newConversation,
