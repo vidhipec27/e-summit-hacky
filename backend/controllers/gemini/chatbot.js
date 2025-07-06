@@ -76,7 +76,7 @@ const buildGoogleGenAIPrompt = (messages) => [
 let user;
 
 const getUserDetails = async (emailid, role) => {
-    if (user)
+    if (user && user.emailid === emailid)
         return user;
 
     try {
