@@ -50,9 +50,7 @@ const Feedback = () => {
         body: formData,
       })
 
-      const data = await res.json()
       if (res.ok) {
-        alert("Video uploaded successfully!")
         setfile(null)
         await fetchEntre()
         setVideoVersion(prev => prev + 1)
@@ -60,6 +58,9 @@ const Feedback = () => {
         console.error("Upload failed:", data)
         alert("Upload failed.")
       }
+
+      window.location.reload();
+      console.log("reloaded!");
     } catch (err) {
       console.log("Upload error:", err.message)
     } finally {

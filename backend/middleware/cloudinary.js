@@ -59,7 +59,9 @@ await cloudinary.uploader.destroy(publicId, { resource_type: "video" });
       if (err) console.error("Failed to delete local file:", err);
     });
 
-    next(); 
+    // next(); 
+
+  return res.status(200).json({ message: "success"});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Video upload failed', error });
