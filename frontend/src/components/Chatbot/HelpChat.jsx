@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./HelpChat.css";
 import { BASE_URL } from "../../helper";
+import { jwtDecode } from "jwt-decode";
 
 export default function HelpChat({ onClose }) {
   const [messages, setMessages] = useState([]);
@@ -12,10 +13,25 @@ export default function HelpChat({ onClose }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const getUser = () => {
+    const token = localStorage.getItem("token")
+    if (!token) return null
+    try {
+      const decoded = jwtDecode(token)
+      return { token: token, emailid: decoded.emailid, role: decoded.role, username: decoded.username }
+    } catch (err) {
+      console.error("Token error:", err)
+      return null
+    }
+  }
+
   const sendMessage = async (event) => {
     event.preventDefault();
     if (!input.trim()) return;
 
+    const user = getUser();
+    const userRole = user?.role;
+    const token = user?.token;
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
@@ -24,8 +40,11 @@ export default function HelpChat({ onClose }) {
     try {
       const response = await fetch(`${BASE_URL}/api/gemini`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ messages: [...messages, userMessage], role: userRole }),
       });
 
       const data = await response.json();
