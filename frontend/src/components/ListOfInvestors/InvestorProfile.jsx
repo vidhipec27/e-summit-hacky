@@ -265,6 +265,7 @@ export default function InvestorProfile() {
                   <option value="E-commerce">E-commerce</option>
                   <option value="Real Estate">Real Estate</option>
                   <option value="Manufacturing">Manufacturing</option>
+                  <option value="Retail">Retail</option>
                   <option value="Other">Other</option>
                 </select>
                 <div className="dropdown-arrow">

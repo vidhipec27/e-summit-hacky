@@ -35,7 +35,7 @@ export const cloudinaryFile = async (req, res, next) => {
     console.log("body?", req.body);
     const emailid=req.body.emailid;
     const entre=await Entre.findOne({emailid});
-    if(entre.videopath){
+    if(entre.videopath){//previous video hai toh usse delete kar do
       
       const urlParts = entre.videopath.split("/");
 const fileName = urlParts.pop().split(".")[0]; // Get the filename without extension

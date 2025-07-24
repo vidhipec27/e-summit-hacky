@@ -302,6 +302,7 @@ export default function EntrepreneurProfile() {
                   <th>Name</th>
                   <th>Phone</th>
                   <th>Funding Needed</th>
+                  {/* <th>Score</th> */}
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -321,6 +322,9 @@ export default function EntrepreneurProfile() {
                           {entrepreneur.needFunding ? "Yes" : "No"}
                         </span>
                       </td>
+                       {/* <td className="score-cell">
+          {entrepreneur.score != null ? entrepreneur.score.toFixed(1) : "N/A"}
+        </td> */}
                       <td className="actions-cell">
                         <div className="action-buttons">
                           <button

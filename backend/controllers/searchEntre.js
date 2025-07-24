@@ -10,10 +10,18 @@ export const searchEntreScore=async(req,resp)=>{
         const regex = new RegExp("^" + name, "i");
 
         const entre = name !== '!' ? await Entre.find({username: regex}) : await Entre.find();
+
         const scored=entre.map((entry)=>{
-            const score=entry.averageRating?(((entry.startupStage*20)+(entry.teamSize*4)+
-    (entry.experience*7)+(entry.averageRating*15))*0.581):(((entry.startupStage*20)+(entry.teamSize*4)+
-    (entry.experience*7))*1.031);
+            let score=0;
+            const ss=entry.startupStage+1;
+            const ts=entry.teamSize+1;
+            const exp=entry.experience+1;
+            if(!isNaN(entry.averageRating)){
+                score=((ss*20)+(ts*4)+(exp*7)+(entry.averageRating*15))*0.4405;
+            }
+            else{
+                score=((ss*20)+(ts*4)+(exp*7))*0.6579;
+            }
     return{
         username:entry.username,
         emailid:entry.emailid,
@@ -22,7 +30,10 @@ export const searchEntreScore=async(req,resp)=>{
         score:Number(score.toFixed(2))
     }
         });
-    const result=scored.sort((a,b)=>b.score-a.score).slice(0,20);
+    const result=scored
+        .filter(e=>typeof e.score === 'number' && !isNaN(e.score))
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,20);
     resp.status(200).json({success:true,result});
     }
     catch(error){
